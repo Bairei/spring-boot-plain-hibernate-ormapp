@@ -1,6 +1,5 @@
 package com.bairei.ormapp.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -35,7 +34,7 @@ public class Album {
     @ManyToOne(cascade = CascadeType.ALL)
     private Label label;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "album_studio", joinColumns = @JoinColumn(name = "album_id"),
             inverseJoinColumns = @JoinColumn(name = "studio_id"))
     private Set<Studio> studios = new HashSet<>();
@@ -94,6 +93,14 @@ public class Album {
 
     public void setLabel(Label label) {
         this.label = label;
+    }
+
+    public Set<Studio> getStudios() {
+        return studios;
+    }
+
+    public void setStudios(Set<Studio> studios) {
+        this.studios = studios;
     }
 
     @Override

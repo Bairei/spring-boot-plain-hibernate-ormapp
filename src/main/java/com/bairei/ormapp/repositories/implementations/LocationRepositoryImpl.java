@@ -1,7 +1,7 @@
 package com.bairei.ormapp.repositories.implementations;
 
-import com.bairei.ormapp.models.Member;
-import com.bairei.ormapp.repositories.MemberRepository;
+import com.bairei.ormapp.models.Location;
+import com.bairei.ormapp.repositories.LocationRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,54 +14,54 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+public class LocationRepositoryImpl implements LocationRepository {
 
-public class MemberRepositoryImpl implements MemberRepository {
-    private final Logger log = LoggerFactory.getLogger(MemberRepositoryImpl.class);
+    private final Logger log = LoggerFactory.getLogger(LocationRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
 
-    public MemberRepositoryImpl(SessionFactory sessionFactory){
+    public LocationRepositoryImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void saveOrUpdate(Member member) {
-        sessionFactory.getCurrentSession().saveOrUpdate(member);
+    public void saveOrUpdate(Location location) {
+        sessionFactory.getCurrentSession().saveOrUpdate(location);
     }
 
     @Override
-    public Member save(Member member) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(member);
+    public Location save(Location location) {
+        Long id = (Long) sessionFactory.getCurrentSession().save(location);
         log.info("ID:" + id.toString());
         return findById(id);
     }
 
     @Override
     @Transactional
-    public List<Member> listAll() {
+    public List<Location> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Member.class);
+        Criteria criteria = session.createCriteria(Location.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 
     @Override
-    public Member findById(Long aLong) {
+    public Location findById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.load(Member.class, aLong);
+        return session.load(Location.class, aLong);
     }
 
     @Override
-    public void delete(Member member) {
+    public void delete(Location location) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.delete(member);
+        session.delete(location);
     }
 
     @Override
     public void deleteById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        Member toDelete = session.load(Member.class, aLong);
+        Location toDelete = session.load(Location.class, aLong);
         if (toDelete != null){
             session.delete(toDelete);
         }
@@ -71,4 +71,5 @@ public class MemberRepositoryImpl implements MemberRepository {
     public Integer count() {
         return listAll().size();
     }
+
 }

@@ -1,7 +1,7 @@
 package com.bairei.ormapp.repositories.implementations;
 
-import com.bairei.ormapp.models.Member;
-import com.bairei.ormapp.repositories.MemberRepository;
+import com.bairei.ormapp.models.Event;
+import com.bairei.ormapp.repositories.EventRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,54 +14,54 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-
-public class MemberRepositoryImpl implements MemberRepository {
-    private final Logger log = LoggerFactory.getLogger(MemberRepositoryImpl.class);
+public class EventRepositoryImpl implements EventRepository {
+    private final Logger log = LoggerFactory.getLogger(EventRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
 
-    public MemberRepositoryImpl(SessionFactory sessionFactory){
+    public EventRepositoryImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void saveOrUpdate(Member member) {
-        sessionFactory.getCurrentSession().saveOrUpdate(member);
+    public void saveOrUpdate(Event event) {
+        sessionFactory.getCurrentSession().saveOrUpdate(event);
     }
 
     @Override
-    public Member save(Member member) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(member);
+    public Event save(Event event) {
+        Long id = (Long) sessionFactory.getCurrentSession().save(event);
         log.info("ID:" + id.toString());
         return findById(id);
     }
 
+
     @Override
     @Transactional
-    public List<Member> listAll() {
+    public List<Event> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Member.class);
+        Criteria criteria = session.createCriteria(Event.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 
     @Override
-    public Member findById(Long aLong) {
+    public Event findById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.load(Member.class, aLong);
+        return session.load(Event.class, aLong);
     }
 
     @Override
-    public void delete(Member member) {
+    public void delete(Event event) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.delete(member);
+        session.delete(event);
     }
 
     @Override
     public void deleteById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        Member toDelete = session.load(Member.class, aLong);
+        Event toDelete = session.load(Event.class, aLong);
         if (toDelete != null){
             session.delete(toDelete);
         }

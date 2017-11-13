@@ -1,7 +1,7 @@
 package com.bairei.ormapp.repositories.implementations;
 
-import com.bairei.ormapp.models.Member;
-import com.bairei.ormapp.repositories.MemberRepository;
+import com.bairei.ormapp.models.Venue;
+import com.bairei.ormapp.repositories.VenueRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,54 +14,53 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-
-public class MemberRepositoryImpl implements MemberRepository {
-    private final Logger log = LoggerFactory.getLogger(MemberRepositoryImpl.class);
+public class VenueRepositoryImpl implements VenueRepository {
+    private final Logger log = LoggerFactory.getLogger(VenueRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
 
-    public MemberRepositoryImpl(SessionFactory sessionFactory){
+    public VenueRepositoryImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void saveOrUpdate(Member member) {
-        sessionFactory.getCurrentSession().saveOrUpdate(member);
+    public void saveOrUpdate(Venue venue) {
+        sessionFactory.getCurrentSession().saveOrUpdate(venue);
     }
 
     @Override
-    public Member save(Member member) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(member);
+    public Venue save(Venue venue) {
+        Long id = (Long) sessionFactory.getCurrentSession().save(venue);
         log.info("ID:" + id.toString());
         return findById(id);
     }
 
     @Override
     @Transactional
-    public List<Member> listAll() {
+    public List<Venue> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Member.class);
+        Criteria criteria = session.createCriteria(Venue.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 
     @Override
-    public Member findById(Long aLong) {
+    public Venue findById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.load(Member.class, aLong);
+        return session.load(Venue.class, aLong);
     }
 
     @Override
-    public void delete(Member member) {
+    public void delete(Venue venue) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.delete(member);
+        session.delete(venue);
     }
 
     @Override
     public void deleteById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        Member toDelete = session.load(Member.class, aLong);
+        Venue toDelete = session.load(Venue.class, aLong);
         if (toDelete != null){
             session.delete(toDelete);
         }
@@ -71,4 +70,5 @@ public class MemberRepositoryImpl implements MemberRepository {
     public Integer count() {
         return listAll().size();
     }
+
 }

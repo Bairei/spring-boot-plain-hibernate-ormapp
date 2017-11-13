@@ -11,38 +11,59 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 
 @Component
 public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
-    private BandRepository bandRepository;
-    private AlbumRepository albumRepository;
-    private MemberRepository memberRepository;
-    private LabelRepository labelRepository;
-    private GenreRepository genreRepository;
+    private final BandRepository bandRepository;
+    private final AlbumRepository albumRepository;
+    private final MemberRepository memberRepository;
+    private final LabelRepository labelRepository;
+    private final GenreRepository genreRepository;
+    private final EventRepository eventRepository;
+    private final LocationRepository locationRepository;
+    private final PromoterRepository promoterRepository;
+    private final StudioRepository studioRepository;
+    private final VenueRepository venueRepository;
+
     private final static Logger log = LoggerFactory.getLogger(DataBootstrap.class);
 
     @Autowired
     public DataBootstrap(BandRepository bandRepository, AlbumRepository albumRepository,
-                         MemberRepository memberRepository, LabelRepository labelRepository, GenreRepository genreRepository){
+                         MemberRepository memberRepository, LabelRepository labelRepository,
+                         GenreRepository genreRepository, EventRepository eventRepository,
+                         LocationRepository locationRepository, PromoterRepository promoterRepository,
+                         StudioRepository studioRepository, VenueRepository venueRepository){
         this.bandRepository = bandRepository;
         this.albumRepository = albumRepository;
         this.memberRepository = memberRepository;
         this.labelRepository = labelRepository;
         this.genreRepository = genreRepository;
+        this.locationRepository = locationRepository;
+        this.eventRepository = eventRepository;
+        this.promoterRepository = promoterRepository;
+        this.studioRepository = studioRepository;
+        this.venueRepository = venueRepository;
     }
 
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
-        if(bandRepository.count() == 0  && memberRepository.count() == 0 // && albumRepository.count() == 0
-                && labelRepository.count() == 0 && genreRepository.count() == 0){
+        if(bandRepository.count().equals(0)  && memberRepository.count().equals(0) && albumRepository.count().equals(0)
+                && labelRepository.count().equals(0) && genreRepository.count().equals(0)
+                && locationRepository.count().equals(0) && eventRepository.count().equals(0)
+                && promoterRepository.count().equals(0) && studioRepository.count().equals(0)
+                && venueRepository.count().equals(0)){
             initData();
         }
-        log.info(bandRepository.count() + " " + memberRepository.count() + " " + albumRepository.count() + " " + labelRepository.count() + " " + genreRepository.count());
+        log.info(bandRepository.count() + " " + memberRepository.count() + " " + albumRepository.count()
+                + " " + labelRepository.count() + " " + genreRepository.count() + " " + locationRepository.count()
+                + " " + eventRepository.count() + " " + promoterRepository.count() + " " + studioRepository.count()
+                + " " + venueRepository.count());
     }
 
     private void initData(){
@@ -84,6 +105,15 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
         slayer.setGenre(thrash);
         slayer.setYearFounded(1981);
 
+        Location location = new Location();
+        location.setPlace("Warsaw, Poland");
+        locationRepository.save(location);
+
+        Studio studio = new Studio();
+        studio.setLocation(location);
+        studio.setName("Some studio name");
+        studioRepository.save(studio);
+
         Album rib = new Album();
         rib.setBand(slayer);
         rib.setGenre(thrash);
@@ -91,6 +121,7 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
         rib.setMembers(new HashSet<>(Arrays.asList(jh,kk,ta,dl)));
         rib.setTitle("Reign in Blood");
         rib.setLabel(defJamRec);
+        rib.setStudios(new HashSet<>(Arrays.asList(studio)));
 
         Album sita = new Album();
         sita.setBand(slayer);
@@ -99,6 +130,7 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
         sita.setMembers(new HashSet<>(Arrays.asList(jh,kk,ta,dl)));
         sita.setTitle("Seasons In The Abyss");
         sita.setLabel(amRecordings);
+        sita.setStudios(new HashSet<>(Arrays.asList(studio)));
 
         Album repentless = new Album();
         repentless.setTitle("Repentless");
@@ -107,7 +139,7 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
         repentless.setYearOfRelease(2015);
         repentless.setMembers(new HashSet<>(Arrays.asList(kk,ta,gh,pb)));
         repentless.setLabel(nuclearBlast);
-
+        repentless.setStudios(new HashSet<>(Arrays.asList(studio)));
 
 //        albumRepository.save(Arrays.asList(rib, sita, repentless));
         albumRepository.save(rib);
@@ -124,6 +156,26 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
         memberRepository.save(gh);
         memberRepository.save(pb);
         bandRepository.save(slayer);
+
+        Promoter promoter = new Promoter();
+        promoter.setName("Live Nation");
+        promoter.setYearFounded(1980);
+        promoterRepository.save(promoter);
+
+
+
+        Venue venue = new Venue();
+        venue.setName("Stodola");
+        venue.setLocation(location);
+        venueRepository.save(venue);
+
+        Event event = new Event();
+        event.setEventDate(LocalDate.now());
+        event.setType(EventType.CONCERT);
+        event.setPromoter(promoter);
+        event.setVenue(venue);
+        event.setBandSet(new HashSet<>(Arrays.asList(slayer)));
+        eventRepository.save(event);
 
         System.out.println(slayer.getId() + ", members size: " + slayer.getMembers().size());
         for (Member m: slayer.getMembers()) {

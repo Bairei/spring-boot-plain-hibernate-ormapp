@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class BandRepositoryImpl implements BandRepository{
     private final Logger log = LoggerFactory.getLogger(BandRepositoryImpl.class);
 

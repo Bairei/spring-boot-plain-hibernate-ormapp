@@ -1,7 +1,7 @@
 package com.bairei.ormapp.repositories.implementations;
 
-import com.bairei.ormapp.models.Member;
-import com.bairei.ormapp.repositories.MemberRepository;
+import com.bairei.ormapp.models.Studio;
+import com.bairei.ormapp.repositories.StudioRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,54 +14,54 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-
-public class MemberRepositoryImpl implements MemberRepository {
-    private final Logger log = LoggerFactory.getLogger(MemberRepositoryImpl.class);
+public class StudioRepositoryImpl implements StudioRepository {
+    private final Logger log = LoggerFactory.getLogger(StudioRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
 
-    public MemberRepositoryImpl(SessionFactory sessionFactory){
+    public StudioRepositoryImpl(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
     }
 
     @Override
-    public void saveOrUpdate(Member member) {
-        sessionFactory.getCurrentSession().saveOrUpdate(member);
+    public void saveOrUpdate(Studio studio) {
+        sessionFactory.getCurrentSession().saveOrUpdate(studio);
     }
 
     @Override
-    public Member save(Member member) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(member);
+    public Studio save(Studio studio) {
+        Long id = (Long) sessionFactory.getCurrentSession().save(studio);
         log.info("ID:" + id.toString());
         return findById(id);
     }
 
+
     @Override
     @Transactional
-    public List<Member> listAll() {
+    public List<Studio> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Member.class);
+        Criteria criteria = session.createCriteria(Studio.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
 
     @Override
-    public Member findById(Long aLong) {
+    public Studio findById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        return session.load(Member.class, aLong);
+        return session.load(Studio.class, aLong);
     }
 
     @Override
-    public void delete(Member member) {
+    public void delete(Studio studio) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.delete(member);
+        session.delete(studio);
     }
 
     @Override
     public void deleteById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        Member toDelete = session.load(Member.class, aLong);
+        Studio toDelete = session.load(Studio.class, aLong);
         if (toDelete != null){
             session.delete(toDelete);
         }
