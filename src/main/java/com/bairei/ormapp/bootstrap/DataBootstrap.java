@@ -60,10 +60,12 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
                 && venueRepository.count().equals(0)){
             initData();
         }
-        log.info(bandRepository.count() + " " + memberRepository.count() + " " + albumRepository.count()
-                + " " + labelRepository.count() + " " + genreRepository.count() + " " + locationRepository.count()
-                + " " + eventRepository.count() + " " + promoterRepository.count() + " " + studioRepository.count()
-                + " " + venueRepository.count());
+//        log.info(bandRepository.count() + " " + memberRepository.count() + " " + albumRepository.count()
+//                + " " + labelRepository.count() + " " + genreRepository.count() + " " + locationRepository.count()
+//                + " " + eventRepository.count() + " " + promoterRepository.count() + " " + studioRepository.count()
+//                + " " + venueRepository.count());
+        log.info(String.valueOf(bandRepository.findBandsByNameIncluding("ayer").size()));
+        log.info(String.valueOf(albumRepository.findAlbumsByTitleIncluding("s in the").size()));
     }
 
     private void initData(){
@@ -182,7 +184,7 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
             System.out.println("ID: " + m.getId() + ", name: " + m.getName());
         }
         System.out.println("albums size: " + slayer.getAlbums().size());
-        for (Album album: slayer.getAlbums()){
+        for (Album album: slayer.getAlbums()) {
             System.out.println("ID: " + album.getId() + ", name: " + album.getTitle());
         }
     }

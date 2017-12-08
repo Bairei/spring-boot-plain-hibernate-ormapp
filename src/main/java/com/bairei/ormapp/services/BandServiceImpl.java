@@ -46,4 +46,9 @@ public class BandServiceImpl implements BandService {
     public Integer count() {
         return bandRepository.count();
     }
+
+    @Override
+    public List<Band> findBandsByNameIncluding(String name) {
+        return bandRepository.findBandsByNameIncluding(name);
+    }
 }

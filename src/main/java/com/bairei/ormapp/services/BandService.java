@@ -11,4 +11,5 @@ public interface BandService {
     Band findById(Long id);
     void deleteById(Long aLong);
     Integer count();
+    List<Band> findBandsByNameIncluding(String name);
 }

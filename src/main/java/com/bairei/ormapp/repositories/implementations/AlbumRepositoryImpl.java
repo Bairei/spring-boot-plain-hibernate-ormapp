@@ -6,6 +6,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.jpa.criteria.compile.CriteriaCompiler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -72,5 +76,14 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     @Override
     public Integer count() {
         return listAll().size();
+    }
+
+    @Override
+    public List<Album> findAlbumsByTitleIncluding(String title) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Album.class);
+        criteria.add(Restrictions.like("title", title,  MatchMode.ANYWHERE));
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
     }
 }

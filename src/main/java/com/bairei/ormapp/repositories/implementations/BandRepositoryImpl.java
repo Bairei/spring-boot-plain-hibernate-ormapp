@@ -6,6 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -70,5 +72,14 @@ public class BandRepositoryImpl implements BandRepository{
     @Override
     public Integer count() {
         return listAll().size();
+    }
+
+    @Override
+    public List<Band> findBandsByNameIncluding(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria query = session.createCriteria(Band.class);
+        query.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
+        query.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return query.list();
     }
 }
