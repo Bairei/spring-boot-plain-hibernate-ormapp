@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -70,5 +71,13 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public Integer count() {
         return listAll().size();
+    }
+
+    @Override
+    public Member findMemberByNameEqualsIgnoreCase(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Member.class);
+        criteria.add(Restrictions.eq("name", name).ignoreCase());
+        return (Member) criteria.uniqueResult();
     }
 }

@@ -77,9 +77,29 @@ public class BandRepositoryImpl implements BandRepository{
     @Override
     public List<Band> findBandsByNameIncluding(String name) {
         Session session = this.sessionFactory.getCurrentSession();
-        Criteria query = session.createCriteria(Band.class);
-        query.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
-        query.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        return query.list();
+        Criteria criteria = session.createCriteria(Band.class);
+        criteria.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
+    @Override
+    public List<Band> findBandsByGenreNameEqualsIgnoreCase(String genreName){
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Band.class);
+        criteria.createAlias("genre", "bandGenre");
+        criteria.add(Restrictions.eq("bandGenre.name", genreName).ignoreCase());
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
+    @Override
+    public List<Band> findBandsByMembersIncludingMemberNameEqualsIgnoreCase(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Band.class, "band");
+        criteria.createAlias("band.members", "member");
+        criteria.add(Restrictions.eq("member.name", name).ignoreCase());
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
     }
 }

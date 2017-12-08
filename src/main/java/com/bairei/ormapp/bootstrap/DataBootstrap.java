@@ -64,8 +64,13 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
 //                + " " + labelRepository.count() + " " + genreRepository.count() + " " + locationRepository.count()
 //                + " " + eventRepository.count() + " " + promoterRepository.count() + " " + studioRepository.count()
 //                + " " + venueRepository.count());
-        log.info(String.valueOf(bandRepository.findBandsByNameIncluding("ayer").size()));
-        log.info(String.valueOf(albumRepository.findAlbumsByTitleIncluding("s in the").size()));
+        log.info("bands by name including ayer: " + String.valueOf(bandRepository.findBandsByNameIncluding("ayer").size()));
+        log.info("albums by title including s in the ab: " + String.valueOf(albumRepository.findAlbumsByTitleIncluding("s in the ab").size()));
+        log.info("bands by genre name equals thrash Metal (ignoring case): " + String.valueOf(bandRepository.findBandsByGenreNameEqualsIgnoreCase("thrash Metal")));
+        log.info("albums by genre name equals thrash Metal (ignoring case): " + String.valueOf(albumRepository.findAlbumsByGenreNameEqualsIgnoreCase("thrash Metal").size()));
+        log.info("albums by members including name Jeff Hanneman: " + String.valueOf(albumRepository.findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase("jeff haNNeman")));
+        log.info("bands my members including name Jeff Hanneman: " + String.valueOf(bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("jeff hanneman")));
+        log.info("bands my members including name Tom Araya: " + String.valueOf(bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("TOM araYa")));
     }
 
     private void initData(){
