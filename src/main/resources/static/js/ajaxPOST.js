@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $("#label-form-submit").click(function (event) {
         var label = {};
         label["id"] = $("#id-input").val();
@@ -24,6 +25,7 @@ $(document).ready(function () {
 
         });
     });
+
     $("#member-form-submit").click(function (event) {
         var member = {};
         member["id"] = $("#id-input").val();
@@ -45,9 +47,9 @@ $(document).ready(function () {
             error: function (e) {
                 console.log(e);
             }
-
         });
     });
+
     $("#genre-form-submit").click(function (event) {
         var genre = {};
         genre["id"] = $("#id-input").val();
@@ -69,7 +71,55 @@ $(document).ready(function () {
             error: function (e) {
                 console.log(e);
             }
+        });
+    });
 
+    $("#location-form-submit").click(function (event) {
+        var location = {};
+        location["id"] = $("#id-input").val();
+        location["place"] = $("#place-input").val();
+
+        console.log(location);
+        $("#myModal").modal('hide');
+
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            url: "/api/location",
+            data: JSON.stringify(location),
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#location").append(new Option(data.place, data.id));
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    });
+
+    $("#promoter-form-submit").click(function (event) {
+        var promoter = {};
+        promoter["id"] = $("#id-input").val();
+        promoter["name"] = $("#name-input").val();
+        promoter["yearFounded"] = $("#year-founded-input").val();
+
+        console.log(promoter);
+        $("#myModal").modal('hide');
+
+        $.ajax({
+            type: "post",
+            contentType: "application/json",
+            url: "/api/promoter",
+            data: JSON.stringify(promoter),
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                $("#promoter").append(new Option(data.name, data.id));
+            },
+            error: function (e) {
+                console.log(e);
+            }
         });
     });
 });

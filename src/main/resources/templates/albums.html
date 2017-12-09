@@ -28,6 +28,7 @@
                     <th>Label:</th>
                     <th>Genre:</th>
                     <th>Members:</th>
+                    <th>Studios:</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,11 @@
                     <td>
                         <div th:each="member : ${album.members}">
                             <div th:text="${member.name}"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div th:each="studio : ${album.studios}">
+                            <div th:text="${studio.name}"></div>
                         </div>
                     </td>
                 </tr>

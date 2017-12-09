@@ -39,18 +39,4 @@ public class MemberController {
         }
         return "redirect:/members";
     }
-
-//    @PostMapping("/member")
-//    public String postMember(@ModelAttribute Member member, Model model, HttpServletRequest request){
-//        String[] header = request.getHeader("Referer").split("/");
-//        try {
-//            memberRepository.save(member);
-//        } catch (Exception e){
-//            log.warn(e.toString());
-//            model.addAttribute("newMember", member);
-//            return "memberform :: memberForm";
-//        }
-//        if (("/" + header[3] + "/" + header[4]).equalsIgnoreCase("/member/new")) return "redirect:/";
-//        return "redirect:/" + header[3] + "/" + header[4];
-//    }
 }

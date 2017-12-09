@@ -33,17 +33,4 @@ public class LabelController {
         return "redirect:/";
     }
 
-//    @PostMapping("/label")
-//    public String postLabel(@ModelAttribute Label label, Model model, HttpServletRequest request){
-//        String[] header = request.getHeader("Referer").split("/");
-//        try {
-//            labelRepository.save(label);
-//        } catch (Exception e){
-//            log.warn(e.toString());
-//            model.addAttribute("newLabel", label);
-//            return "labelform :: labelForm";
-//        }
-//        if (("/" + header[3] + "/" + header[4]).equalsIgnoreCase("/label/new")) return "redirect:/";
-//        return "redirect:/" + header[3] + "/" + header[4];
-//    }
 }

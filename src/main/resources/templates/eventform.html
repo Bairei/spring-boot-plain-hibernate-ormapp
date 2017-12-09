@@ -5,6 +5,8 @@
     <title>Title</title>
     <script src="https://cdn.jsdelivr.net/webjars/org.webjars/jquery/3.2.1/jquery.min.js"
             th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars/jquery-ui/1.12.1/jquery-ui.min.js"
+            th:src="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/webjars/org.webjars.bower/popper.js/1.12.9/dist/umd/popper.min.js"
             th:src="@{/webjars/popper.js/1.12.9/dist/umd/popper.min.js}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
@@ -13,76 +15,61 @@
             th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars.bower/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css"
           th:href="@{/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/jquery-ui/1.12.1/jquery-ui.min.css"
+            th:href="@{/webjars/jquery-ui/1.12.1/jquery-ui.min.css}"/>
 </head>
 <body>
 <div class="container">
     <th:block th:include="header :: header"></th:block>
     <div class="jumbotron">
-        <p class="lead">New Band:</p>
-        <!--/*@thymesVar id="album" type="com.bairei.ormapp.models.Album"*/-->
-        <form class="form-horizontal" th:object="${album}" th:action="@{/album}" th:method="post">
+        <p class="lead">New Event:</p>
+        <!--/*@thymesVar id="event" type="com.bairei.ormapp.models.Event"*/-->
+        <form class="form-horizontal" th:object="${event}" th:action="@{/event}" th:method="post">
             <ul class="list-form"><li class="list-group-item list-group-item-danger" th:each="err : ${#fields.errors('*')}" th:text="${err}">Error in form</li></ul>
             <input type="hidden" th:field="*{id}"/>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Title:</label>
+                <label class="col-sm-2 control-label">Date:</label>
                 <div class="col-sm-10">
-                    <input type="text" required="true" class="form-control" th:field="*{title}"/>
+                    <input type="text" id="datepicker" required="true" class="form-control" th:field="*{eventDate}"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Recorded in:</label>
+                <label class="col-sm-2 control-label">Type of event:</label>
                 <div class="col-sm-10">
-                    <input type="number" required="true" class="form-control" th:field="*{yearOfRelease}"/>
+                    <select th:field="*{type}">
+                        <!--/*@thymesVar id="eventTypes" type="com.bairei.ormapp.models.EventType"*/-->
+                        <option value="" th:selected="selected" th:disabled="disabled">---</option>
+                        <option th:each="eventType : ${eventTypes}" th:value="${eventType}" th:text="${eventType}" ></option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label">Recorded by:</label>
+                <label class="col-sm-2 control-label">Promoted by:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{band}">
+                    <select th:field="*{promoter}">
+                        <!--/*@thymesVar id="promoters" type="com.bairei.ormapp.models.Promoter"*/-->
+                        <option value="" th:selected="selected" th:disabled="disabled">---</option>
+                        <option th:each="promoter : ${promoters}" th:value="${promoter.id}" th:text="${promoter.name}" ></option>
+                    </select>
+                    <a href="#" th:href="@{#}" id="newPromoterBtn">New Promoter</a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Venue:</label>
+                <div class="col-sm-10">
+                    <select th:field="*{venue}">
+                        <!--/*@thymesVar id="venues" type="com.bairei.ormapp.models.Venue"*/-->
+                        <option value="" th:selected="selected" th:disabled="disabled">---</option>
+                        <option th:each="venue : ${venues}" th:value="${venue.id}" th:text="${venue.name}" ></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Participating bands:</label>
+                <div class="col-sm-10">
+                    <select th:field="*{bandSet}" multiple="multiple">
                         <!--/*@thymesVar id="bands" type="com.bairei.ormapp.models.Band"*/-->
-                        <option value="" th:selected="selected" th:disabled="disabled">---</option>
                         <option th:each="band : ${bands}" th:value="${band.id}" th:text="${band.name}" ></option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Genre:</label>
-                <div class="col-sm-10">
-                    <select th:field="*{genre}">
-                        <!--/*@thymesVar id="genres" type="com.bairei.ormapp.models.Genre"*/-->
-                        <option value="" th:selected="selected" th:disabled="disabled">---</option>
-                        <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}" ></option>
-                    </select>
-                    <a href="#" th:href="@{#}" id="newGenreBtn">New genre</a>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Label:</label>
-                <div class="col-sm-10">
-                    <select th:field="*{label}">
-                        <!--/*@thymesVar id="labels" type="com.bairei.ormapp.models.Label"*/-->
-                        <option value="" th:selected="selected" th:disabled="disabled">---</option>
-                        <option th:each="lab : ${labels}" th:value="${lab.id}" th:text="${lab.name}" ></option>
-                    </select>
-                    <a href="#" th:href="@{#}" id="newLabelBtn">New label</a>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Members:</label>
-                <div class="col-sm-10">
-                    <select th:field="*{members}" multiple="multiple">
-                        <!--/*@thymesVar id="allMembers" type="com.bairei.ormapp.models.Member"*/-->
-                        <option th:each="member : ${allMembers}" th:value="${member.id}" th:text="${member.name}" ></option>
-                    </select>
-                    <a href="#" th:href="@{#}" id="newMemberBtn">New member</a>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Studios:</label>
-                <div class="col-sm-10">
-                    <select th:field="*{studios}" multiple="multiple">
-                        <!--/*@thymesVar id="studios" type="com.bairei.ormapp.models.Studio"*/-->
-                        <option th:each="studio : ${studios}" th:value="${studio.id}" th:text="${studio.name}" ></option>
                     </select>
                 </div>
             </div>
@@ -93,6 +80,11 @@
     </div>
 </div>
 <script th:inline="javascript" type="text/javascript" src="../static/js/modal.js" th:src="@{/js/modal.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#datepicker").datepicker();
+    })
+</script>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

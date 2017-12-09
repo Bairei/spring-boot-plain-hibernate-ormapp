@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Music Application</title>
+    <title>Title</title>
     <script src="https://cdn.jsdelivr.net/webjars/org.webjars/jquery/3.2.1/jquery.min.js"
             th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/webjars/org.webjars.bower/popper.js/1.12.9/dist/umd/popper.min.js"
@@ -15,12 +15,27 @@
           th:href="@{/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css}"/>
 </head>
 <body>
-    <div class="container">
-        <th:block th:include="header :: header"></th:block>
-        <div class="jumbotron">
-            <h1>Welcome to my app!</h1>
-            <p class="lead">A simple Music Bands web application, written in Java, using Spring Boot, with plain Hibernate 5 ORM framework for database access.</p>
-        </div>
+<div class="container">
+    <th:block th:include="header :: header"></th:block>
+    <div class="jumbotron">
+        <table class="table table-striped table-bordered table-hover table-sm">
+            <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="studio :${studios}">
+                <!--/*@thymesVar id="studio" type="com.bairei.ormapp.models.Studio"*/-->
+                <td th:text="${studio.id}"></td>
+                <td th:text="${studio.name}"></td>
+                <td th:text="${studio.location.place}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 </body>
 </html>

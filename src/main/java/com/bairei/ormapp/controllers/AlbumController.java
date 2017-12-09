@@ -23,16 +23,17 @@ public class AlbumController {
     private final LabelRepository labelRepository;
     private final GenreRepository genreRepository;
     private final BandRepository bandRepository;
+    private final StudioRepository studioRepository;
 
 
-    @Autowired
     public AlbumController(AlbumRepository albumRepository, MemberRepository memberRepository, LabelRepository labelRepository,
-                           GenreRepository genreRepository, BandRepository bandRepository){
+                           GenreRepository genreRepository, BandRepository bandRepository, StudioRepository studioRepository){
         this.albumRepository = albumRepository;
         this.genreRepository = genreRepository;
         this.labelRepository = labelRepository;
         this.memberRepository = memberRepository;
         this.bandRepository = bandRepository;
+        this.studioRepository = studioRepository;
     }
 
     @GetMapping(value = "/albums")
@@ -54,6 +55,7 @@ public class AlbumController {
         model.addAttribute("genres", genreRepository.listAll());
         model.addAttribute("allMembers", memberRepository.listAll());
         model.addAttribute("labels", labelRepository.listAll());
+        model.addAttribute("studios", studioRepository.listAll());
         model.addAttribute("newGenre", new Genre());
         return "albumform";
     }
@@ -69,6 +71,7 @@ public class AlbumController {
             model.addAttribute("genres", genreRepository.listAll());
             model.addAttribute("allMembers", memberRepository.listAll());
             model.addAttribute("labels", labelRepository.listAll());
+            model.addAttribute("studios", studioRepository.listAll());
             return "albumform";
         }
         return "redirect:/albums";

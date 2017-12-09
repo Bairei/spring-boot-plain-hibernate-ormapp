@@ -36,4 +36,9 @@ public class Location {
     public void setPlace(String place) {
         this.place = place;
     }
+
+    @Override
+    public String toString() {
+        return this.place;
+    }
 }

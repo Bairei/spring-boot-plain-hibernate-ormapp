@@ -29,4 +29,24 @@ $(document).ready(function () {
             $("#myModalBody").append(html);
         });
     });
+    $('#newLocationBtn').on('click', function (e) {
+        $("#myModal").modal();
+        $("#myModalBody").text("");
+        $.ajax({
+            url: "/location/new",
+            cache: false
+        }).done(function (html) {
+            $("#myModalBody").append(html);
+        });
+    });
+    $('#newPromoterBtn').on('click', function (e) {
+        $("#myModal").modal();
+        $("#myModalBody").text("");
+        $.ajax({
+            url: "/promoter/new",
+            cache: false
+        }).done(function (html) {
+            $("#myModalBody").append(html);
+        });
+    });
 });

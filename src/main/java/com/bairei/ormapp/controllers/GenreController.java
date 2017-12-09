@@ -33,7 +33,7 @@ public class GenreController {
         }
         return "redirect:/";
     }
-
+// Not sure if it will be used later, but better to keep it, just in case
 //    @PostMapping("/genre")
 //    public String postGenre(@ModelAttribute Genre genre, Model model, HttpServletRequest request){
 //        String[] header = request.getHeader("Referer").split("/");
