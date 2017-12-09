@@ -31,20 +31,20 @@ public class GenreController {
         if (AjaxUtils.isAjaxRequest(requestedWith)) {
             return "genreform :: genreForm";
         }
-        return "genreform";
+        return "redirect:/";
     }
 
-    @PostMapping("/genre")
-    public String postGenre(@ModelAttribute Genre genre, Model model, HttpServletRequest request){
-        String[] header = request.getHeader("Referer").split("/");
-        try {
-            genreRepository.save(genre);
-        } catch (Exception e){
-            log.warn(e.toString());
-            model.addAttribute("newGenre", genre);
-            return "genreform :: genreForm";
-        }
-        if (("/" + header[3] + "/" + header[4]).equalsIgnoreCase("/genre/new")) return "redirect:/";
-        return "redirect:/" + header[3] + "/" + header[4];
-    }
+//    @PostMapping("/genre")
+//    public String postGenre(@ModelAttribute Genre genre, Model model, HttpServletRequest request){
+//        String[] header = request.getHeader("Referer").split("/");
+//        try {
+//            genreRepository.save(genre);
+//        } catch (Exception e){
+//            log.warn(e.toString());
+//            model.addAttribute("newGenre", genre);
+//            return "genreform :: genreForm";
+//        }
+//        if (("/" + header[3] + "/" + header[4]).equalsIgnoreCase("/genre/new")) return "redirect:/";
+//        return "redirect:/" + header[3] + "/" + header[4];
+//    }
 }
