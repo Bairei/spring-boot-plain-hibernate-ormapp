@@ -3,5 +3,5 @@ A web application created with Spring Boot, with plain Hibernate.
 
 Deploying an app:
  - Make sure you have Maven 3 installed and configured, as well as MySQL server deployed at localhost:3306 address.
- - in terminal prompt execute command: ```mvn spring-boot:run```, in main directory of this app (that is the same directory where you can find src dir and pom.xml file)
- - if database server was configured properly, the application should start listening to port 8080 (localhost:8080).
+ - in terminal prompt execute command: ```mvn spring-boot:run```, in main directory of this app (that is in the same directory as src dir and pom.xml file)
+ - if database server was configured properly, the application should start listening on port 8080 (localhost:8080).
