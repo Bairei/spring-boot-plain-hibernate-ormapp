@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Music Application</title>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars/jquery/3.2.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars.bower/popper.js/1.12.9/dist/umd/popper.min.js"
+            th:src="@{/webjars/popper.js/1.12.9/dist/umd/popper.min.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}"/>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars.bower/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css"
+          th:href="@{/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css}"/>
+</head>
+<body>
+<div th:fragment="header">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="#" th:href="@{/}"><span class="oi oi-musical-note"></span> Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsdrop" aria-controls="navbarsdrop" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsdrop">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bands<span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a href="#" class="dropdown-item"  th:href="@{/bands}">Band list</a>
+                            <a href="#" class="dropdown-item"  th:href="@{#}">Create Band</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Albums<span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown02">
+                            <a href="#" class="dropdown-item" th:href="@{/albums}">Album list</a>
+                            <a href="#" class="dropdown-item" th:href="@{#}">Create an album</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Members<span class="caret"></span></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown03">
+                            <a href="#" class="dropdown-item" th:href="@{/members}">Member list</a>
+                            <a href="#" class="dropdown-item" th:href="@{#}">Create a member</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

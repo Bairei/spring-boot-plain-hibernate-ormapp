@@ -33,9 +33,9 @@ public class BandRepositoryImpl implements BandRepository{
 
     @Override
     public Band save(Band band) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(band);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(band);
+        log.info("ID:" + band.getId().toString());
+        return findById(band.getId());
     }
 
 

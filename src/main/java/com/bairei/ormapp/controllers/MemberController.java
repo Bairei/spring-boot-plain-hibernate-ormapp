@@ -1,14 +1,13 @@
 package com.bairei.ormapp.controllers;
 
-import com.bairei.ormapp.models.Member;
 import com.bairei.ormapp.repositories.MemberRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@RestController
+@Transactional
+@Controller
 public class MemberController {
 
     private final MemberRepository memberRepository;
@@ -17,9 +16,10 @@ public class MemberController {
         this.memberRepository = memberRepository;
     }
 
-    @Transactional
-    @GetMapping(value = "/members", produces = "application/json")
-    public List<Member> memberList(){
-        return memberRepository.listAll();
+
+    @GetMapping("/members")
+    public String memberList(Model model){
+        model.addAttribute("members", memberRepository.listAll());
+        return "members";
     }
 }

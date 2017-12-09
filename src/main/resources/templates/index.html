@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Music Application</title>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars/jquery/3.2.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars.bower/popper.js/1.12.9/dist/umd/popper.min.js"
+            th:src="@{/webjars/popper.js/1.12.9/dist/umd/popper.min.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}"/>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars.bower/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css"
+          th:href="@{/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css}"/>
+</head>
+<body>
+    <div class="container">
+        <th:block th:include="header :: header"></th:block>
+        <div class="jumbotron">
+            <h1>Welcome to my app!</h1>
+            <p class="lead">A simple Musical Bands web application, written in Java using Spring Boot with plain Hibernate 5 for database access.</p>
+        </div>
+    </div>
+</body>
+</html>

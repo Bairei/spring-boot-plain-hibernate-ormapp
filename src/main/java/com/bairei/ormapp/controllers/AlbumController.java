@@ -1,33 +1,33 @@
 package com.bairei.ormapp.controllers;
 
-import com.bairei.ormapp.models.Album;
 import com.bairei.ormapp.repositories.AlbumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@RestController
+@Transactional
+@Controller
 public class AlbumController {
 
     private AlbumRepository albumRepository;
 
+    @Autowired
     public AlbumController(AlbumRepository albumRepository){
         this.albumRepository = albumRepository;
     }
 
-    @Transactional
-    @GetMapping(value = "/albums", produces = "application/json")
-    public List<Album> albumList(){
-        return albumRepository.listAll();
+    @GetMapping(value = "/albums")
+    public String albumList(Model model){
+         model.addAttribute("albumList", albumRepository.listAll());
+         return "albums";
     }
 
-    @Transactional
-    @GetMapping(value = "/album/search/{title}", produces = "application/json")
-    public List<Album> albumListByTitle(@PathVariable String title){
-        return albumRepository.findAlbumsByTitleIncluding(title);
+    @GetMapping("/album/search/{title}")
+    public String albumListByTitle(@PathVariable String title, Model model){
+        model.addAttribute(albumRepository.findAlbumsByTitleIncluding(title));
+        return "albums";
     }
-
 }

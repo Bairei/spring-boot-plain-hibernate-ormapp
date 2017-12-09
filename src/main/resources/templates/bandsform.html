@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars/jquery/3.2.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars.bower/popper.js/1.12.9/dist/umd/popper.min.js"
+            th:src="@{/webjars/popper.js/1.12.9/dist/umd/popper.min.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/4.0.0-beta.2/css/bootstrap.min.css}"/>
+    <script src="https://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            th:src="@{/webjars/bootstrap/4.0.0-beta.2/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/webjars/org.webjars.bower/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css"
+          th:href="@{/webjars/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css}"/>
+</head>
+<body>
+    <div class="container">
+        <th:block th:include="header :: header"></th:block>
+        <div class="jumbotron">
+            <p class="lead">New Band:</p>
+            <!--/*@thymesVar id="band" type="com.bairei.ormapp.models.Band"*/-->
+            <form class="form-horizontal" th:object="${band}" th:action="@{/band}" th:method="post">
+                <ul class="list-form"><li class="list-group-item list-group-item-danger" th:each="err : ${#fields.errors('*')}" th:text="${err}">Error in form</li></ul>
+                <input type="hidden" th:field="*{id}"/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" required="true" class="form-control" th:field="*{name}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Founded in:</label>
+                    <div class="col-sm-10">
+                        <input type="number" required="true" class="form-control" th:field="*{yearFounded}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Disbanded in:</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" th:field="*{yearDisbanded}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Genre:</label>
+                    <div class="col-sm-10">
+                        <select th:field="*{genre}">
+                                <!--/*@thymesVar id="genres" type="com.bairei.ormapp.models.Genre"*/-->
+                                <option value="0">---</option>
+                                <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}" ></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Members:</label>
+                    <div class="col-sm-10">
+                        <select th:field="*{members}" multiple="multiple">
+                            <!--/*@thymesVar id="allMembers" type="com.bairei.ormapp.models.Member"*/-->
+                            <option th:each="member : ${allMembers}" th:value="${member.id}" th:text="${member.name}" ></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="submit" class="btn btn-default" value="Create"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
