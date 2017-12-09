@@ -19,26 +19,27 @@
     <div class="jumbotron">
         <p class="lead">New Label:</p>
         <!--/*@thymesVar id="newLabel" type="com.bairei.ormapp.models.Label"*/-->
-        <form class="form-horizontal" th:object="${newLabel}" th:action="@{/label}" th:method="post">
+        <form class="form-horizontal" id="label-form">
             <ul class="list-form"><li class="list-group-item list-group-item-danger" th:each="err : ${#fields.errors('*')}" th:text="${err}">Error in form</li></ul>
-            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" id="id-input" th:field="${newLabel.id}"/>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Name:</label>
                 <div class="col-sm-10">
-                    <input type="text" required="true" class="form-control" th:field="*{name}"/>
+                    <input type="text" id="name-input" required="true" class="form-control" th:field="${newLabel.name}"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-4 control-label">Founded in:</label>
                 <div class="col-sm-10">
-                    <input type="number" required="true" class="form-control" th:field="*{yearFounded}"/>
+                    <input type="number" id="yearFounded-input" required="true" class="form-control" th:field="*{newLabel.yearFounded}"/>
                 </div>
             </div>
             <div class="row">
-                <input type="submit" class="btn btn-default" value="Create"/>
+                <input type="button" id="label-form-submit" class="btn btn-default" value="Create"/>
             </div>
         </form>
     </div>
+    <script th:inline="javascript" type="text/javascript" src="../static/js/ajaxPOST.js" th:src="@{/js/ajaxPOST.js}"></script>
 </div>
 </body>
 </html>
