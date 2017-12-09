@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class PromoterRepositoryImpl implements PromoterRepository {
     private final Logger log = LoggerFactory.getLogger(PromoterRepositoryImpl.class);
 
@@ -31,14 +32,13 @@ public class PromoterRepositoryImpl implements PromoterRepository {
 
     @Override
     public Promoter save(Promoter promoter) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(promoter);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(promoter);
+        log.info("ID:" + promoter.getId().toString());
+        return findById(promoter.getId());
     }
 
 
     @Override
-    @Transactional
     public List<Promoter> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Promoter.class);

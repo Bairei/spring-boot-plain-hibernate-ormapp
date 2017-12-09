@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class BandRepositoryImpl implements BandRepository{
     private final Logger log = LoggerFactory.getLogger(BandRepositoryImpl.class);
 
@@ -40,7 +41,6 @@ public class BandRepositoryImpl implements BandRepository{
 
 
     @Override
-    @Transactional
     public List<Band> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Band.class);

@@ -5,8 +5,6 @@ import com.bairei.ormapp.repositories.GenreRepository;
 import com.bairei.ormapp.repositories.MemberRepository;
 import com.bairei.ormapp.services.BandService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -44,11 +42,14 @@ public class BandController {
     }
 
     @PostMapping("/band")
-    public String postBand(@ModelAttribute Band band){
+    public String postBand(@ModelAttribute Band band, Model model){
         try {
             bandService.save(band);
         } catch (Exception e){
             log.warn(e.toString());
+            model.addAttribute("band", band);
+            model.addAttribute("genres", genreRepository.listAll());
+            model.addAttribute("allMembers", memberRepository.listAll());
             return "bandsform";
         }
         return "redirect:/bands/";

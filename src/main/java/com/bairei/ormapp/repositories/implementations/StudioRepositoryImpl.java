@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class StudioRepositoryImpl implements StudioRepository {
     private final Logger log = LoggerFactory.getLogger(StudioRepositoryImpl.class);
 
@@ -31,14 +32,13 @@ public class StudioRepositoryImpl implements StudioRepository {
 
     @Override
     public Studio save(Studio studio) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(studio);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(studio);
+        log.info("ID:" + studio.getId().toString());
+        return findById(studio.getId());
     }
 
 
     @Override
-    @Transactional
     public List<Studio> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Studio.class);

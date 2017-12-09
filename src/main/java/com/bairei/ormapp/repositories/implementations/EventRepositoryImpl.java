@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class EventRepositoryImpl implements EventRepository {
     private final Logger log = LoggerFactory.getLogger(EventRepositoryImpl.class);
 
@@ -31,14 +32,13 @@ public class EventRepositoryImpl implements EventRepository {
 
     @Override
     public Event save(Event event) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(event);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(event);
+        log.info("ID:" + event.getId().toString());
+        return findById(event.getId());
     }
 
 
     @Override
-    @Transactional
     public List<Event> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Event.class);

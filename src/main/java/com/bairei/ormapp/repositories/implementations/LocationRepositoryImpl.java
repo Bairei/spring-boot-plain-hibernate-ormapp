@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class LocationRepositoryImpl implements LocationRepository {
 
     private final Logger log = LoggerFactory.getLogger(LocationRepositoryImpl.class);
@@ -32,13 +33,12 @@ public class LocationRepositoryImpl implements LocationRepository {
 
     @Override
     public Location save(Location location) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(location);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(location);
+        log.info("ID:" + location.getId().toString());
+        return findById(location.getId());
     }
 
     @Override
-    @Transactional
     public List<Location> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Location.class);

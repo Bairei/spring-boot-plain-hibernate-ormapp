@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
+@Transactional
 public class AlbumRepositoryImpl implements AlbumRepository {
 
     private final Logger log = LoggerFactory.getLogger(AlbumRepositoryImpl.class);
@@ -38,14 +39,13 @@ public class AlbumRepositoryImpl implements AlbumRepository {
 
     @Override
     public Album save(Album album) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(album);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(album);
+        log.info("ID:" + album.getId().toString());
+        return findById(album.getId());
     }
 
 
     @Override
-    @Transactional
     public List<Album> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Album.class);
@@ -54,7 +54,6 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     }
 
     @Override
-    @Transactional
     public Album findById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
         return session.load(Album.class, aLong);

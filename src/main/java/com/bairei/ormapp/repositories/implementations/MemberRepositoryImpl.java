@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-
+@Transactional
 public class MemberRepositoryImpl implements MemberRepository {
     private final Logger log = LoggerFactory.getLogger(MemberRepositoryImpl.class);
 
@@ -33,13 +33,12 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public Member save(Member member) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(member);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(member);
+        log.info("ID:" + member.getId().toString());
+        return findById(member.getId());
     }
 
     @Override
-    @Transactional
     public List<Member> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Member.class);

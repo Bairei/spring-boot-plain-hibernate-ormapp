@@ -60,10 +60,6 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
                 && venueRepository.count().equals(0)){
             initData();
         }
-//        log.info(bandRepository.count() + " " + memberRepository.count() + " " + albumRepository.count()
-//                + " " + labelRepository.count() + " " + genreRepository.count() + " " + locationRepository.count()
-//                + " " + eventRepository.count() + " " + promoterRepository.count() + " " + studioRepository.count()
-//                + " " + venueRepository.count());
         log.info("bands by name including ayer: " + String.valueOf(bandRepository.findBandsByNameIncluding("ayer").size()));
         log.info("albums by title including s in the ab: " + String.valueOf(albumRepository.findAlbumsByTitleIncluding("s in the ab").size()));
         log.info("bands by genre name equals thrash Metal (ignoring case): " + String.valueOf(bandRepository.findBandsByGenreNameEqualsIgnoreCase("thrash Metal")));

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class VenueRepositoryImpl implements VenueRepository {
     private final Logger log = LoggerFactory.getLogger(VenueRepositoryImpl.class);
 
@@ -31,13 +32,12 @@ public class VenueRepositoryImpl implements VenueRepository {
 
     @Override
     public Venue save(Venue venue) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(venue);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(venue);
+        log.info("ID:" + venue.getId().toString());
+        return findById(venue.getId());
     }
 
     @Override
-    @Transactional
     public List<Venue> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Venue.class);

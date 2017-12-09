@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class LabelRepositoryImpl implements LabelRepository {
 
     private final Logger log = LoggerFactory.getLogger(LabelRepositoryImpl.class);
@@ -32,14 +33,13 @@ public class LabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Label save(Label label) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(label);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(label);
+        log.info("ID:" + label.getId().toString());
+        return findById(label.getId());
     }
 
 
     @Override
-    @Transactional
     public List<Label> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Label.class);

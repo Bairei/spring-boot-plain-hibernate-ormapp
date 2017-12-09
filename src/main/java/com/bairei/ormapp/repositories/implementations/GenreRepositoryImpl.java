@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class GenreRepositoryImpl implements GenreRepository {
 
     private final Logger log = LoggerFactory.getLogger(GenreRepositoryImpl.class);
@@ -31,14 +32,13 @@ public class GenreRepositoryImpl implements GenreRepository {
 
     @Override
     public Genre save(Genre genre) {
-        Long id = (Long) sessionFactory.getCurrentSession().save(genre);
-        log.info("ID:" + id.toString());
-        return findById(id);
+        sessionFactory.getCurrentSession().saveOrUpdate(genre);
+        log.info("ID:" + genre.getId().toString());
+        return findById(genre.getId());
     }
 
 
     @Override
-    @Transactional
     public List<Genre> listAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Genre.class);
