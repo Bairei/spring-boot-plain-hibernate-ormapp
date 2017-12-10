@@ -25,17 +25,20 @@
             <div class="collapse navbar-collapse" id="navbarsdrop">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bands<span class="caret"></span></a>
+                        <a href="#" class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">List<span class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a href="#" class="dropdown-item"  th:href="@{/bands}">Band list</a>
-                            <a href="#" class="dropdown-item"  th:href="@{#}">Create Band</a>
+                            <a href="#" class="dropdown-item"  th:href="@{/bands}">Bands</a>
+                            <a href="#" class="dropdown-item" th:href="@{/albums}">Albums</a>
+                            <a href="#" class="dropdown-item" th:href="@{/members}">Members</a>
+                            <a href="#" class="dropdown-item" th:href="@{/events}">Events</a>
+                            <a href="#" class="dropdown-item" th:href="@{/studios}">Recording studios</a>
+                            <a href="#" class="dropdown-item" th:href="@{/venues}">Venues</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Albums<span class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown02">
                             <a href="#" class="dropdown-item" th:href="@{/albums}">Album list</a>
-                            <a href="#" class="dropdown-item" th:href="@{#}">Create an album</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

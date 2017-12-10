@@ -122,4 +122,25 @@ $(document).ready(function () {
             }
         });
     });
+
+    $("#genre-recommend-submit").click(function (event) {
+        console.log("clicked");
+        var genre = {};
+        genre["id"] = $("#genre").val();
+
+        console.log(genre);
+
+        $.ajax({
+            type: "get",
+            url: "/api/recommend/" + genre["id"],
+            success: function (data) {
+                console.log(data);
+                if (data.name) $("#recommendation").html("Your recommendation is: <p>" + data.name + "</p>");
+                else $("#recommendation").text("Unfortunately, we weren't able to find a recommendation for specific genre :(");
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    });
 });

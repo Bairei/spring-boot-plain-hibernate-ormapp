@@ -18,36 +18,26 @@
 <div class="container">
     <th:block th:include="header :: header"></th:block>
     <div class="jumbotron">
-        <div th:fragment="event-table">
-        <table class="table table-striped table-bordered table-hover table-sm">
-            <thead class="thead-dark">
-            <tr>
-                <th>#</th>
-                <th>Event Date:</th>
-                <th>Event Type:</th>
-                <th>Promoted by:</th>
-                <th>Venue:</th>
-                <th>Bands:</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="event :${events}">
-                <!--/*@thymesVar id="events" type="com.bairei.ormapp.models.Event"*/-->
-                <td th:text="${event.id}"></td>
-                <td th:text="${event.eventDate}"></td>
-                <td th:text="${event.type}"></td>
-                <td th:text="${event.promoter.name}"></td>
-                <td th:text="${event.venue.name}"></td>
-                <td>
-                    <div th:each="band : ${event.bandSet}">
-                        <div th:text="${band.name}"></div>
+        <div th:fragment="recommend-form">
+            <form class="form-horizontal" id="recommend-form">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Genre:</label>
+                    <div class="col-sm-10">
+                        <select id="genre">
+                            <!--/*@thymesVar id="genres" type="com.bairei.ormapp.models.Genre"*/-->
+                            <option value="" th:selected="selected" th:disabled="disabled">---</option>
+                            <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}" ></option>
+                        </select>
                     </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </div>
+                <div id="recommendation"></div>
+                <br/>
+                <div class="row">
+                    <input type="button" id="genre-recommend-submit" class="btn btn-default" value="Search!"/>
+                </div>
+            </form>
+            <script th:inline="javascript" type="text/javascript" src="../static/js/ajax.js" th:src="@{/js/ajax.js}"></script>
         </div>
-        <a href="#" th:href="@{/event/new}">New Event</a>
     </div>
 </div>
 </body>

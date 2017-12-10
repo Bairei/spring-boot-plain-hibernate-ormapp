@@ -33,7 +33,7 @@ public class GenreController {
         }
         return "redirect:/";
     }
-// Not sure if it will be used later, but better to keep it, just in case
+// Not sure if it will be used later, but better keep it, just in case
 //    @PostMapping("/genre")
 //    public String postGenre(@ModelAttribute Genre genre, Model model, HttpServletRequest request){
 //        String[] header = request.getHeader("Referer").split("/");
@@ -47,4 +47,5 @@ public class GenreController {
 //        if (("/" + header[3] + "/" + header[4]).equalsIgnoreCase("/genre/new")) return "redirect:/";
 //        return "redirect:/" + header[3] + "/" + header[4];
 //    }
+
 }
