@@ -27,6 +27,7 @@
                 <th>Disbanded in:</th>
                 <th>Genre:</th>
                 <th>Members:</th>
+                <th>Actions:</th>
             </tr>
             </thead>
             <tbody>
@@ -44,6 +45,11 @@
                     <div th:each="member : ${band.members}">
                         <div th:text="${member.name}"></div>
                     </div>
+                </td>
+                <td>
+                    <form action="#" th:action="@{/band/{id}/delete(id=${band.id})}" method="post">
+                        <input type="submit" value="Remove"/>
+                    </form>
                 </td>
             </tr>
             </tbody>

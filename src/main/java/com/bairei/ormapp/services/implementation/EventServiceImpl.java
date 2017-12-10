@@ -1,7 +1,8 @@
-package com.bairei.ormapp.services;
+package com.bairei.ormapp.services.implementation;
 
 import com.bairei.ormapp.models.Event;
 import com.bairei.ormapp.repositories.EventRepository;
+import com.bairei.ormapp.services.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> findAll() {
-        return eventRepository.listAll();
+        return eventRepository.findAll();
     }
 
     @Override

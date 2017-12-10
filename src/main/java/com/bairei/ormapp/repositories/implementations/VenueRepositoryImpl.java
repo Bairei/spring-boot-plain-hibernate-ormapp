@@ -38,7 +38,7 @@ public class VenueRepositoryImpl implements VenueRepository {
     }
 
     @Override
-    public List<Venue> listAll() {
+    public List<Venue> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Venue.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -68,7 +68,7 @@ public class VenueRepositoryImpl implements VenueRepository {
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 
 }

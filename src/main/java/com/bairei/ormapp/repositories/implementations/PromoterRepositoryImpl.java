@@ -39,7 +39,7 @@ public class PromoterRepositoryImpl implements PromoterRepository {
 
 
     @Override
-    public List<Promoter> listAll() {
+    public List<Promoter> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Promoter.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -69,6 +69,6 @@ public class PromoterRepositoryImpl implements PromoterRepository {
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 }

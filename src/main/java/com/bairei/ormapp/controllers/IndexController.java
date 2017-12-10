@@ -29,7 +29,7 @@ public class IndexController {
         List<Event> eventList = eventService.list5UpcomingEvents();
         log.info(eventList.toString());
         model.addAttribute("events", eventList);
-        model.addAttribute("genres", genreRepository.listAll());
+        model.addAttribute("genres", genreRepository.findAll());
         return "index";
     }
 

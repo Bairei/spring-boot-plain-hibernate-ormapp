@@ -24,14 +24,14 @@ public class VenueController {
 
     @GetMapping("/venues")
     public String listVenues(Model model){
-        model.addAttribute("venues", venueRepository.listAll());
+        model.addAttribute("venues", venueRepository.findAll());
         return "venues";
     }
 
     @GetMapping("/venue/new")
     public String newVenue(Model model){
         model.addAttribute("venue", new Venue());
-        model.addAttribute("locations", locationRepository.listAll());
+        model.addAttribute("locations", locationRepository.findAll());
         return "venueform";
     }
 
@@ -42,7 +42,7 @@ public class VenueController {
         } catch (Exception e){
             log.warn(e.toString());
             model.addAttribute("venue", venue);
-            model.addAttribute("locations", locationRepository.listAll());
+            model.addAttribute("locations", locationRepository.findAll());
             return "venueform";
         }
         return "redirect:/venues";

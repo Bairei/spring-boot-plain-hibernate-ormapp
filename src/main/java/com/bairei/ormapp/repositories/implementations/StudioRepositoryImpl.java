@@ -39,7 +39,7 @@ public class StudioRepositoryImpl implements StudioRepository {
 
 
     @Override
-    public List<Studio> listAll() {
+    public List<Studio> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Studio.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -69,6 +69,6 @@ public class StudioRepositoryImpl implements StudioRepository {
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 }

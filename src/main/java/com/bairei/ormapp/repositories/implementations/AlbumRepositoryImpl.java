@@ -1,22 +1,18 @@
 package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Album;
-import com.bairei.ormapp.models.Member;
 import com.bairei.ormapp.repositories.AlbumRepository;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.jpa.criteria.compile.CriteriaCompiler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -46,7 +42,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
 
 
     @Override
-    public List<Album> listAll() {
+    public List<Album> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Album.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -76,7 +72,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 
     @Override

@@ -22,7 +22,7 @@
             <p class="lead">A simple Music Bands web application, written in Java, using Spring Boot, with plain Hibernate 5 ORM framework for database access.</p>
 
             <p>Upcoming events:</p>
-            <th:block th:include="events :: event-table"></th:block>
+            <th:block th:include="recent-events-table :: event-table"></th:block>
 
             <p>Find a new band as a recommendation!</p>
             <th:block th:include="genrerecommend :: recommend-form"></th:block>

@@ -8,11 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Controller
@@ -27,7 +23,7 @@ public class MemberController {
 
     @GetMapping("/members")
     public String memberList(Model model){
-        model.addAttribute("members", memberRepository.listAll());
+        model.addAttribute("members", memberRepository.findAll());
         return "members";
     }
 

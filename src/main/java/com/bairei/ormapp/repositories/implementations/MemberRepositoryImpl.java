@@ -39,7 +39,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public List<Member> listAll() {
+    public List<Member> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Member.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -69,7 +69,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 
     @Override

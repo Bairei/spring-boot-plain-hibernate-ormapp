@@ -17,10 +17,10 @@ public class Event {
     @Enumerated(value = EnumType.STRING)
     private EventType type;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Promoter promoter;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Venue venue;
 
     @ManyToMany

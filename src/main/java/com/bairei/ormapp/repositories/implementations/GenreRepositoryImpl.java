@@ -39,7 +39,7 @@ public class GenreRepositoryImpl implements GenreRepository {
 
 
     @Override
-    public List<Genre> listAll() {
+    public List<Genre> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Genre.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -69,6 +69,6 @@ public class GenreRepositoryImpl implements GenreRepository {
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 }

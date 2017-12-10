@@ -25,7 +25,7 @@ public class StudioController {
     @GetMapping("/studio/new")
     public String newStudio(Model model){
         model.addAttribute("newStudio", new Studio());
-        model.addAttribute("locations", locationRepository.listAll());
+        model.addAttribute("locations", locationRepository.findAll());
         return "studioform";
     }
 
@@ -36,7 +36,7 @@ public class StudioController {
         } catch (Exception e){
             log.warn(e.toString());
             model.addAttribute("newStudio", studio);
-            model.addAttribute("locations", locationRepository.listAll());
+            model.addAttribute("locations", locationRepository.findAll());
             return "studioform";
         }
         return "redirect:/studios";
@@ -44,7 +44,7 @@ public class StudioController {
 
     @GetMapping("/studios")
     public String listStudios(Model model){
-        model.addAttribute("studios", studioRepository.listAll());
+        model.addAttribute("studios", studioRepository.findAll());
         return "studios";
     }
 }

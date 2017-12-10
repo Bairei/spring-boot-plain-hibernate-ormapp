@@ -40,7 +40,7 @@ public class LabelRepositoryImpl implements LabelRepository {
 
 
     @Override
-    public List<Label> listAll() {
+    public List<Label> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Label.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -70,7 +70,7 @@ public class LabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 
 }

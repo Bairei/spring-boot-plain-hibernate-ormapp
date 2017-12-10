@@ -41,7 +41,7 @@ public class BandRepositoryImpl implements BandRepository{
 
 
     @Override
-    public List<Band> listAll() {
+    public List<Band> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Band.class);
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
@@ -71,7 +71,7 @@ public class BandRepositoryImpl implements BandRepository{
 
     @Override
     public Integer count() {
-        return listAll().size();
+        return findAll().size();
     }
 
     @Override

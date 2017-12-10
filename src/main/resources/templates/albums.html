@@ -29,6 +29,7 @@
                     <th>Genre:</th>
                     <th>Members:</th>
                     <th>Studios:</th>
+                    <th>Actions:</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -49,6 +50,11 @@
                         <div th:each="studio : ${album.studios}">
                             <div th:text="${studio.name}"></div>
                         </div>
+                    </td>
+                    <td>
+                        <form action="#" th:action="@{/album/{id}/delete(id=${album.id})}" method="post">
+                            <input type="submit" value="Remove"/>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

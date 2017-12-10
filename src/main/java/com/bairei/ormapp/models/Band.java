@@ -22,7 +22,7 @@ public class Band {
     @Min(1900) @Max(2017)
     private Integer yearDisbanded;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Genre genre;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -30,7 +30,7 @@ public class Band {
             inverseJoinColumns = @JoinColumn(name = "member_id"))
     private Set<Member> members = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "band")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "band")
     @JsonBackReference
     private Set<Album> albums = new HashSet<>();
 

@@ -1,5 +1,7 @@
 package com.bairei.ormapp.models;
 
+import org.hibernate.engine.spi.CascadeStyle;
+
 import javax.persistence.*;
 
 @Entity

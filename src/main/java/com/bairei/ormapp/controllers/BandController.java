@@ -30,7 +30,6 @@ public class BandController {
 
     @GetMapping("/bands")
     public String bandList(Model model){
-        log.info(bandService.count().toString());
         model.addAttribute("bands", bandService.findAll());
         return "bands";
     }
@@ -48,8 +47,8 @@ public class BandController {
         } catch (Exception e){
             log.warn(e.toString());
             model.addAttribute("band", band);
-            model.addAttribute("genres", genreRepository.listAll());
-            model.addAttribute("allMembers", memberRepository.listAll());
+            model.addAttribute("genres", genreRepository.findAll());
+            model.addAttribute("allMembers", memberRepository.findAll());
             return "bandsform";
         }
         return "redirect:/bands/";
@@ -60,19 +59,28 @@ public class BandController {
         Band band = bandService.findById(id);
         if (band != null){
             model.addAttribute("band", band);
-            model.addAttribute("genres", genreRepository.listAll());
-            model.addAttribute("allMembers", memberRepository.listAll());
+            model.addAttribute("genres", genreRepository.findAll());
+            model.addAttribute("allMembers", memberRepository.findAll());
             return "bandsform";
         }
         return "redirect:/bands";
     }
 
-
     @GetMapping("/band/new")
     public String newBand(Model model){
         model.addAttribute("band", new Band());
-        model.addAttribute("genres", genreRepository.listAll());
-        model.addAttribute("allMembers", memberRepository.listAll());
+        model.addAttribute("genres", genreRepository.findAll());
+        model.addAttribute("allMembers", memberRepository.findAll());
         return "bandsform";
+    }
+
+    @PostMapping("/band/{id}/delete")
+    public String removeBand(@PathVariable Long id){
+        try {
+            bandService.deleteById(id);
+        } catch (Exception e){
+            log.warn(e.toString());
+        }
+        return "redirect:/bands";
     }
 }

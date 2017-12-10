@@ -16,14 +16,14 @@ public class Album {
 
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonManagedReference
     private Band band;
 
     @Min(1900) @Max(2017)
     private Integer yearOfRelease;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Genre genre;
 
     @ManyToMany(fetch = FetchType.EAGER)
