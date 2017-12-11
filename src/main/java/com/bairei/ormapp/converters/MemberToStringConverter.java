@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class MemberToStringConverter implements Converter<Member, String> {
     @Override
     public String convert(Member member) {
-        return  member.toString();
+        return member.toString();
     }
 }

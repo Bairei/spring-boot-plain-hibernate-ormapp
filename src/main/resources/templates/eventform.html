@@ -38,7 +38,6 @@
                 <div class="col-sm-10">
                     <select th:field="*{type}">
                         <!--/*@thymesVar id="eventTypes" type="com.bairei.ormapp.models.EventType"*/-->
-                        <option value="" th:selected="selected" th:disabled="disabled">---</option>
                         <option th:each="eventType : ${eventTypes}" th:value="${eventType}" th:text="${eventType}" ></option>
                     </select>
                 </div>

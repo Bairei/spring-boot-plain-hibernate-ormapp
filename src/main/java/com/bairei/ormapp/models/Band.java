@@ -92,6 +92,6 @@ public class Band {
 
     @Override
     public String toString() {
-        return this.id + " " + this.name;
+        return this.getId().toString();
     }
 }

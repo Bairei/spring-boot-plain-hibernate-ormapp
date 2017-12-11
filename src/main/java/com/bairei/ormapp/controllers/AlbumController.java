@@ -56,8 +56,22 @@ public class AlbumController {
         model.addAttribute("allMembers", memberRepository.findAll());
         model.addAttribute("labels", labelRepository.findAll());
         model.addAttribute("studios", studioRepository.findAll());
-        model.addAttribute("newGenre", new Genre());
         return "albumform";
+    }
+
+    @GetMapping("/album/{id}/edit")
+    public String editAlbum(@PathVariable Long id, Model model){
+        Album album = albumService.findById(id);
+        if (album != null){
+            model.addAttribute("album", album);
+            model.addAttribute("bands", bandRepository.findAll());
+            model.addAttribute("genres", genreRepository.findAll());
+            model.addAttribute("allMembers", memberRepository.findAll());
+            model.addAttribute("labels", labelRepository.findAll());
+            model.addAttribute("studios", studioRepository.findAll());
+            return "albumform";
+        }
+        return "redirect:/albums";
     }
 
     @PostMapping("/album")

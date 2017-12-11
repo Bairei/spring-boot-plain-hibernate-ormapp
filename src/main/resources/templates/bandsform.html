@@ -44,10 +44,10 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Genre:</label>
                     <div class="col-sm-10">
-                        <select th:field="*{genre}">
+                        <select th:field="*{{genre}}">
                             <!--/*@thymesVar id="genres" type="com.bairei.ormapp.models.Genre"*/-->
-                            <option value="" th:selected="selected" th:disabled="disabled">---</option>
-                            <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}" ></option>
+                            <option value="" selected="selected" disabled="disabled">---</option>
+                            <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}"></option>
                         </select>
                         <a href="#" th:href="@{#}" id="newGenreBtn">New genre</a>
                     </div>
@@ -57,7 +57,7 @@
                     <div class="col-sm-10">
                         <select th:field="*{members}" multiple="multiple">
                             <!--/*@thymesVar id="allMembers" type="com.bairei.ormapp.models.Member"*/-->
-                            <option th:each="member : ${allMembers}" th:value="${member.id}" th:text="${member.name}" ></option>
+                            <option th:each="member : ${allMembers}" th:value="${{member.id}}" th:text="${member.name}"></option>
                         </select>
                         <a href="#" th:href="@{#}" id="newMemberBtn">New member</a>
                     </div>

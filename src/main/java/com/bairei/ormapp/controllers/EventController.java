@@ -47,6 +47,20 @@ public class EventController {
         return "eventForm";
     }
 
+    @GetMapping("/event/{id}/edit")
+    public String editEvent(@PathVariable Long id, Model model){
+        Event event = eventService.findById(id);
+        if (event != null) {
+            model.addAttribute("event", event);
+            model.addAttribute("bands", bandService.findAll());
+            model.addAttribute("eventTypes", EventType.values());
+            model.addAttribute("venues", venueRepository.findAll());
+            model.addAttribute("promoters", promoterRepository.findAll());
+            return "eventForm";
+        }
+        return "redirect:/events";
+    }
+
     @PostMapping("/event")
     public String postEvent(@ModelAttribute Event event, Model model){
         try {

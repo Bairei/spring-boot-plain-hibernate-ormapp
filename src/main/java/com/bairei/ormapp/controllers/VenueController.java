@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -41,6 +42,17 @@ public class VenueController {
             venueRepository.save(venue);
         } catch (Exception e){
             log.warn(e.toString());
+            model.addAttribute("venue", venue);
+            model.addAttribute("locations", locationRepository.findAll());
+            return "venueform";
+        }
+        return "redirect:/venues";
+    }
+
+    @GetMapping("/venue/{id}/edit")
+    public String editVenue (@PathVariable Long id, Model model){
+        Venue venue = venueRepository.findById(id);
+        if (venue != null){
             model.addAttribute("venue", venue);
             model.addAttribute("locations", locationRepository.findAll());
             return "venueform";

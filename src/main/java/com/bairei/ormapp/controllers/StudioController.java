@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -46,5 +47,16 @@ public class StudioController {
     public String listStudios(Model model){
         model.addAttribute("studios", studioRepository.findAll());
         return "studios";
+    }
+
+    @GetMapping("/studio/{id}/edit")
+    public String editStudio(@PathVariable Long id, Model model){
+        Studio studio = studioRepository.findById(id);
+        if (studio != null){
+            model.addAttribute("newStudio", studio);
+            model.addAttribute("locations", locationRepository.findAll());
+            return "studioform";
+        }
+        return "redirect:/studios";
     }
 }

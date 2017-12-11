@@ -47,4 +47,9 @@ public class Studio {
         this.name = name;
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return this.getId().toString();
+    }
 }

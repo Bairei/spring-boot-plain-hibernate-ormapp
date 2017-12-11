@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class LocationToStringConverter implements Converter<Location, String>{
     @Override
     public String convert(Location location) {
-        return location.toString();
+        return location.getId().toString();
     }
 }
