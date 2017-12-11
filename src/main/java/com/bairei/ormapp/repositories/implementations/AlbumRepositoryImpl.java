@@ -2,14 +2,13 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Album;
 import com.bairei.ormapp.repositories.AlbumRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +16,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class AlbumRepositoryImpl implements AlbumRepository {
-
-    private final Logger log = LoggerFactory.getLogger(AlbumRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -36,7 +34,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     @Override
     public Album save(Album album) {
         sessionFactory.getCurrentSession().saveOrUpdate(album);
-        log.info("ID:" + album.getId().toString());
+        // log.info("ID:" + album.getId().toString());
         return findById(album.getId());
     }
 
@@ -100,6 +98,16 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         Criteria criteria = session.createCriteria(Album.class, "album");
         criteria.createAlias("album.members", "member");
         criteria.add(Restrictions.eq("member.name", name).ignoreCase());
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
+    @Override
+    public List<Album> findAlbumsByStudioNameEqualsIgnoreCase(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Album.class, "album");
+        criteria.createAlias("album.studios", "studio");
+        criteria.add(Restrictions.eq("studio.name", name).ignoreCase());
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }

@@ -62,4 +62,9 @@ public class EventServiceImpl implements EventService {
                 .limit(5)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Event> findEventsByVenueNameEqualsIgnoreCase(String name) {
+        return eventRepository.findEventsByVenueNameEqualsIgnoreCase(name);
+    }
 }

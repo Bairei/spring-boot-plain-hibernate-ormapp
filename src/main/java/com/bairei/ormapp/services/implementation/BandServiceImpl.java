@@ -47,12 +47,13 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long aLong) {
         Band band = bandRepository.findById(aLong);
         band.setGenre(null);
         band.setMembers(new HashSet<>());
         bandRepository.save(band);
-        for (Event event: eventRepository.findAll()){
+        for (Event event: eventRepository.findEventsByBandsIncludingBandNameEqualsIgnoreCase(band.getName())){
             if(event.getBandSet().contains(band)) {
                 Set<Band> bands = event.getBandSet();
                 bands.remove(band);
@@ -75,5 +76,10 @@ public class BandServiceImpl implements BandService {
     @Override
     public List<Band> findBandsByNameIncluding(String name) {
         return bandRepository.findBandsByNameIncluding(name);
+    }
+
+    @Override
+    public List<Band> findBandsByMembersIncludingMemberNameEqualsIgnoreCase(String name) {
+        return bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase(name);
     }
 }

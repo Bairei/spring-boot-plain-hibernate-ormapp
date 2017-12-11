@@ -2,12 +2,13 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Studio;
 import com.bairei.ormapp.repositories.StudioRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class StudioRepositoryImpl implements StudioRepository {
-    private final Logger log = LoggerFactory.getLogger(StudioRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -33,7 +34,7 @@ public class StudioRepositoryImpl implements StudioRepository {
     @Override
     public Studio save(Studio studio) {
         sessionFactory.getCurrentSession().saveOrUpdate(studio);
-        log.info("ID:" + studio.getId().toString());
+        // log.info("ID:" + studio.getId().toString());
         return findById(studio.getId());
     }
 
@@ -70,5 +71,14 @@ public class StudioRepositoryImpl implements StudioRepository {
     @Override
     public Integer count() {
         return findAll().size();
+    }
+
+    @Override
+    public List<Studio> findStudiosByLocationPlaceIncluding(String place) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Studio.class, "studio");
+        criteria.createAlias("studio.location", "location");
+        criteria.add(Restrictions.like("location.place", place, MatchMode.ANYWHERE));
+        return criteria.list();
     }
 }

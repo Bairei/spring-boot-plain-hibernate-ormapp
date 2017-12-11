@@ -16,7 +16,7 @@ public class Studio {
     @NotNull(message = "Studio name must not be null!")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Location location;
 
     public Long getId() {

@@ -65,8 +65,11 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
         log.info("bands by genre name equals thrash Metal (ignoring case): " + String.valueOf(bandRepository.findBandsByGenreNameEqualsIgnoreCase("thrash Metal")));
         log.info("albums by genre name equals thrash Metal (ignoring case): " + String.valueOf(albumRepository.findAlbumsByGenreNameEqualsIgnoreCase("thrash Metal").size()));
         log.info("albums by members including name Jeff Hanneman: " + String.valueOf(albumRepository.findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase("jeff haNNeman")));
-        log.info("bands my members including name Jeff Hanneman: " + String.valueOf(bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("jeff hanneman")));
-        log.info("bands my members including name Tom Araya: " + String.valueOf(bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("TOM araYa")));
+        log.info("bands by members including name Jeff Hanneman: " + String.valueOf(bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("jeff hanneman")));
+        log.info("bands by members including name Tom Araya: " + String.valueOf(bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("TOM araYa")));
+        log.info("events by bands including band name slayer:" + eventRepository.findEventsByBandsIncludingBandNameEqualsIgnoreCase("slayer"));
+        log.info("studios by location place like warsaw: " + studioRepository.findStudiosByLocationPlaceIncluding("warsaw"));
+        log.info("venues by location place like warsaw: " + venueRepository.listVenuesByLocationPlaceIncluding("warsaw"));
     }
 
     private void initData(){

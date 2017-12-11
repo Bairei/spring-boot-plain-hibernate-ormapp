@@ -64,8 +64,8 @@ public class GenreServiceImpl implements GenreService {
                 .filter(b -> b.getGenre().getId().equals(id))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), collected ->{
                     Collections.shuffle(collected);
-                    return collected.stream(); }))
-                .findFirst();
+                    return collected.stream();
+                })).findFirst();
         return band.orElse(null);
     }
 }

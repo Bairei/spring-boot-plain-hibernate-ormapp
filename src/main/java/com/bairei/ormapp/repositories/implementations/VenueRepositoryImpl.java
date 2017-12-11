@@ -2,12 +2,13 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Venue;
 import com.bairei.ormapp.repositories.VenueRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class VenueRepositoryImpl implements VenueRepository {
-    private final Logger log = LoggerFactory.getLogger(VenueRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -33,7 +34,7 @@ public class VenueRepositoryImpl implements VenueRepository {
     @Override
     public Venue save(Venue venue) {
         sessionFactory.getCurrentSession().saveOrUpdate(venue);
-        log.info("ID:" + venue.getId().toString());
+        // log.info("ID:" + venue.getId().toString());
         return findById(venue.getId());
     }
 
@@ -69,6 +70,15 @@ public class VenueRepositoryImpl implements VenueRepository {
     @Override
     public Integer count() {
         return findAll().size();
+    }
+
+    @Override
+    public List<Venue> listVenuesByLocationPlaceIncluding(String place) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Venue.class, "venue");
+        criteria.createAlias("venue.location", "location");
+        criteria.add(Restrictions.like("location.place", place, MatchMode.ANYWHERE));
+        return criteria.list();
     }
 
 }

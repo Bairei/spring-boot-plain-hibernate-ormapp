@@ -2,6 +2,7 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Band;
 import com.bairei.ormapp.repositories.BandRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,8 +18,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class BandRepositoryImpl implements BandRepository{
-    private final Logger log = LoggerFactory.getLogger(BandRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -35,7 +36,7 @@ public class BandRepositoryImpl implements BandRepository{
     @Override
     public Band save(Band band) {
         sessionFactory.getCurrentSession().saveOrUpdate(band);
-        log.info("ID:" + band.getId().toString());
+        // log.info("ID:" + band.getId().toString());
         return findById(band.getId());
     }
 

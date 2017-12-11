@@ -2,12 +2,11 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Location;
 import com.bairei.ormapp.repositories.LocationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +14,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class LocationRepositoryImpl implements LocationRepository {
-
-    private final Logger log = LoggerFactory.getLogger(LocationRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -34,7 +32,7 @@ public class LocationRepositoryImpl implements LocationRepository {
     @Override
     public Location save(Location location) {
         sessionFactory.getCurrentSession().saveOrUpdate(location);
-        log.info("ID:" + location.getId().toString());
+        // log.info("ID:" + location.getId().toString());
         return findById(location.getId());
     }
 

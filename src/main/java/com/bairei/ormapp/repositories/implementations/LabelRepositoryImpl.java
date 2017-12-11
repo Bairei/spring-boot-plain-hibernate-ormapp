@@ -2,12 +2,11 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Label;
 import com.bairei.ormapp.repositories.LabelRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +14,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class LabelRepositoryImpl implements LabelRepository {
-
-    private final Logger log = LoggerFactory.getLogger(LabelRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -34,7 +32,7 @@ public class LabelRepositoryImpl implements LabelRepository {
     @Override
     public Label save(Label label) {
         sessionFactory.getCurrentSession().saveOrUpdate(label);
-        log.info("ID:" + label.getId().toString());
+        // log.info("ID:" + label.getId().toString());
         return findById(label.getId());
     }
 

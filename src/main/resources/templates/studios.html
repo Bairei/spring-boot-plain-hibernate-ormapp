@@ -24,6 +24,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Location</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +33,11 @@
                 <td th:text="${studio.id}"></td>
                 <td th:text="${studio.name}"></td>
                 <td th:text="${studio.location.place}"></td>
+                <td>
+                    <form action="#" th:action="@{/studio/{id}/delete(id=${studio.id})}" method="post">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

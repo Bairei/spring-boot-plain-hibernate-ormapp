@@ -2,7 +2,7 @@ package com.bairei.ormapp.controllers;
 
 import com.bairei.ormapp.models.Venue;
 import com.bairei.ormapp.repositories.LocationRepository;
-import com.bairei.ormapp.repositories.VenueRepository;
+import com.bairei.ormapp.services.VenueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +18,17 @@ import javax.validation.Valid;
 @Slf4j
 public class VenueController {
 
-    private final VenueRepository venueRepository;
+    private final VenueService venueService;
     private final LocationRepository locationRepository;
 
-    public VenueController(VenueRepository venueRepository, LocationRepository locationRepository){
-        this.venueRepository = venueRepository;
+    public VenueController(VenueService venueService, LocationRepository locationRepository){
+        this.venueService = venueService;
         this.locationRepository = locationRepository;
     }
 
     @GetMapping("/venues")
     public String listVenues(Model model){
-        model.addAttribute("venues", venueRepository.findAll());
+        model.addAttribute("venues", venueService.findAll());
         return "venues";
     }
 
@@ -45,7 +45,7 @@ public class VenueController {
             return "venueform";
         }
         try{
-            venueRepository.save(venue);
+            venueService.save(venue);
         } catch (Exception e){
             log.warn(e.toString());
             formModel(venue, model);
@@ -57,10 +57,20 @@ public class VenueController {
 
     @GetMapping("/venue/{id}/edit")
     public String editVenue (@PathVariable Long id, Model model){
-        Venue venue = venueRepository.findById(id);
+        Venue venue = venueService.findById(id);
         if (venue != null){
             formModel(venue, model);
             return "venueform";
+        }
+        return "redirect:/venues";
+    }
+
+    @PostMapping("/venue/{id}/delete")
+    public String deleteVenue(@PathVariable Long id){
+        try {
+            venueService.deleteById(id);
+        } catch (Exception e){
+            log.warn(e.toString());
         }
         return "redirect:/venues";
     }

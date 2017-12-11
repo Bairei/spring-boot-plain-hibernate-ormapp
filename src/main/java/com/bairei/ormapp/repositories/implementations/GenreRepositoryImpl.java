@@ -2,6 +2,7 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Genre;
 import com.bairei.ormapp.repositories.GenreRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,9 +16,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class GenreRepositoryImpl implements GenreRepository {
-
-    private final Logger log = LoggerFactory.getLogger(GenreRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -33,7 +33,7 @@ public class GenreRepositoryImpl implements GenreRepository {
     @Override
     public Genre save(Genre genre) {
         sessionFactory.getCurrentSession().saveOrUpdate(genre);
-        log.info("ID:" + genre.getId().toString());
+        // log.info("ID:" + genre.getId().toString());
         return findById(genre.getId());
     }
 

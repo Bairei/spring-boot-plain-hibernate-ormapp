@@ -56,4 +56,14 @@ public class AlbumServiceImpl implements AlbumService {
     public List<Album> findAlbumsByTitleIncluding(String title) {
         return albumRepository.findAlbumsByTitleIncluding(title);
     }
+
+    @Override
+    public List<Album> findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase(String name) {
+        return albumRepository.findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase(name);
+    }
+
+    @Override
+    public List<Album> findAlbumsByStudioNameEqualsIgnoreCase(String name) {
+        return albumRepository.findAlbumsByStudioNameEqualsIgnoreCase(name);
+    }
 }

@@ -2,7 +2,7 @@ package com.bairei.ormapp.controllers;
 
 import com.bairei.ormapp.models.Studio;
 import com.bairei.ormapp.repositories.LocationRepository;
-import com.bairei.ormapp.repositories.StudioRepository;
+import com.bairei.ormapp.services.StudioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +18,11 @@ import javax.validation.Valid;
 @Slf4j
 public class StudioController {
 
-    private final StudioRepository studioRepository;
+    private final StudioService studioService;
     private final LocationRepository locationRepository;
 
-    public StudioController (StudioRepository studioRepository, LocationRepository locationRepository){
-        this.studioRepository = studioRepository;
+    public StudioController (StudioService studioService, LocationRepository locationRepository){
+        this.studioService = studioService;
         this.locationRepository = locationRepository;
     }
 
@@ -39,7 +39,7 @@ public class StudioController {
             return "studioform";
         }
         try {
-            studioRepository.save(studio);
+            studioService.save(studio);
         } catch (Exception e){
             log.warn(e.toString());
             formModel(studio, model);
@@ -51,16 +51,26 @@ public class StudioController {
 
     @GetMapping("/studios")
     public String listStudios(Model model){
-        model.addAttribute("studios", studioRepository.findAll());
+        model.addAttribute("studios", studioService.findAll());
         return "studios";
     }
 
     @GetMapping("/studio/{id}/edit")
     public String editStudio(@PathVariable Long id, Model model){
-        Studio studio = studioRepository.findById(id);
+        Studio studio = studioService.findById(id);
         if (studio != null){
             formModel(studio, model);
             return "studioform";
+        }
+        return "redirect:/studios";
+    }
+
+    @PostMapping("/studio/{id}/delete")
+    public String deleteStudio(@PathVariable Long id, Model model){
+        try {
+            studioService.deleteById(id);
+        } catch (Exception e){
+            log.warn(e.toString());
         }
         return "redirect:/studios";
     }

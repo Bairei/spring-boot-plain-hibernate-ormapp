@@ -2,13 +2,12 @@ package com.bairei.ormapp.repositories.implementations;
 
 import com.bairei.ormapp.models.Member;
 import com.bairei.ormapp.repositories.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +15,8 @@ import java.util.List;
 
 @Repository
 @Transactional
+@Slf4j
 public class MemberRepositoryImpl implements MemberRepository {
-    private final Logger log = LoggerFactory.getLogger(MemberRepositoryImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -34,7 +33,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     @Override
     public Member save(Member member) {
         sessionFactory.getCurrentSession().saveOrUpdate(member);
-        log.info("ID:" + member.getId().toString());
+        // log.info("ID:" + member.getId().toString());
         return findById(member.getId());
     }
 

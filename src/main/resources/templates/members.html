@@ -22,7 +22,8 @@
             <thead class="thead-dark">
             <tr>
                 <th>#</th>
-                <th>Name</th>
+                <th>Name:</th>
+                <th>Actions:</th>
             </tr>
             </thead>
             <tbody>
@@ -30,6 +31,11 @@
                 <!--/*@thymesVar id="member" type="com.bairei.ormapp.models.Member"*/-->
                 <td th:text="${member.id}"></td>
                 <td th:text="${member.name}"></td>
+                <td>
+                    <form action="#" th:action="@{/member/{id}/delete(id=${member.id})}" method="post">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -16,7 +16,7 @@ public class Venue {
     @NotEmpty(message = "Venue name must not be empty!")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Location location;
 
     public Venue() {
