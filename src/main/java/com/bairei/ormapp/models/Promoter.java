@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Promoter {
@@ -15,10 +16,12 @@ public class Promoter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty (message = "Promoter's name must not be empty!")
+    @NotNull(message = "Promoter's name must not be null!")
     private String name;
 
-    @Min(1900) @Max(2018)
+    @Min(value = 1900, message = "Promoter's year of foundation must be not earlier than 1900!")
+    @Max(value = 2018, message = "Promoter's year of foundation must be not later than 2017!")
     private Integer yearFounded;
 
     public Promoter() {

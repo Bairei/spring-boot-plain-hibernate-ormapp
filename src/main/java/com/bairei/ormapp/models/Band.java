@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,12 +16,14 @@ public class Band {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Band's name must not be null!")
+    @Size(min = 1, message = "Band's name must not be null!")
     private String name;
 
-    @Min(1900) @Max(2017)
+    @NotNull @Min(value = 1900, message = "Year founded must be later than 1900!") @Max(value = 2017, message = "year founded must be not later than 2017!")
     private Integer yearFounded;
 
-    @Min(1900) @Max(2017)
+    @Min(value = 1900, message = "Year disbanded must be later than 1900!") @Max(value = 2017, message = "Year disbanded must be not later than 2017!")
     private Integer yearDisbanded;
 
     @ManyToOne

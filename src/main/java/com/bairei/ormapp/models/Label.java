@@ -17,10 +17,12 @@ public class Label {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull @Size(min = 1)
+    @NotNull(message = "Label's name must not be null!")
+    @Size(min = 1, message = "Label's name must not be empty!")
     private String name;
 
-    @Min(1900) @Max(2017)
+    @Min(value = 1900, message = "Label's year of foundation must not be earlier than 1900!")
+    @Max(value = 2017, message = "Label's year of foundation must not be later than 2017!")
     private Integer yearFounded;
 
     public Long getId() {

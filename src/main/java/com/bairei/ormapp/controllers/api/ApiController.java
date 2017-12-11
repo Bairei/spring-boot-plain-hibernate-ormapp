@@ -7,7 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @Slf4j
@@ -30,7 +33,10 @@ public class ApiController {
     }
 
     @PostMapping(value = "/api/label", consumes = "application/json")
-    public ResponseEntity<?> postLabel(@RequestBody Label label){
+    public ResponseEntity<?> postLabel(@RequestBody @Valid Label label, BindingResult result){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         try {
             labelRepository.save(label);
             return new ResponseEntity<>(label, HttpStatus.OK);
@@ -40,7 +46,10 @@ public class ApiController {
     }
 
     @PostMapping(value = "/api/member", consumes = "application/json")
-    public ResponseEntity<?> postMember(@RequestBody Member member){
+    public ResponseEntity<?> postMember(@RequestBody @Valid Member member, BindingResult result){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         try {
             memberRepository.save(member);
             return new ResponseEntity<>(member, HttpStatus.OK);
@@ -50,7 +59,10 @@ public class ApiController {
     }
 
     @PostMapping(value = "/api/genre", consumes = "application/json")
-    public ResponseEntity<?> postGenre(@RequestBody Genre genre){
+    public ResponseEntity<?> postGenre(@RequestBody @Valid Genre genre, BindingResult result){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         try {
             genreService.save(genre);
             return new ResponseEntity<>(genre, HttpStatus.OK);
@@ -60,7 +72,10 @@ public class ApiController {
     }
 
     @PostMapping(value = "/api/location", consumes = "application/json")
-    public ResponseEntity<?> postLocation(@RequestBody Location location){
+    public ResponseEntity<?> postLocation(@RequestBody @Valid Location location, BindingResult result){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         try {
             locationRepository.save(location);
             return new ResponseEntity<>(location, HttpStatus.OK);
@@ -70,7 +85,10 @@ public class ApiController {
     }
 
     @PostMapping(value = "/api/promoter", consumes = "application/json")
-    public ResponseEntity<?> postPromoter(@RequestBody Promoter promoter){
+    public ResponseEntity<?> postPromoter(@RequestBody @Valid Promoter promoter, BindingResult result){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         try {
             promoterRepository.save(promoter);
             return new ResponseEntity<>(promoter, HttpStatus.OK);

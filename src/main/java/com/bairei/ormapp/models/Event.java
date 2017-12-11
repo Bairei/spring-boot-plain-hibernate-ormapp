@@ -1,6 +1,7 @@
 package com.bairei.ormapp.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +13,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Event date must not be empty!")
     private LocalDate eventDate;
 
     @Enumerated(value = EnumType.STRING)

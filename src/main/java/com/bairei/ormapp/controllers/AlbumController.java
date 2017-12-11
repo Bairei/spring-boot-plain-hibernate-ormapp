@@ -8,10 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Transactional
 @Slf4j
@@ -50,12 +54,7 @@ public class AlbumController {
 
     @GetMapping("/album/new")
     public String newAlbumForm(Model model){
-        model.addAttribute("album", new Album());
-        model.addAttribute("bands", bandRepository.findAll());
-        model.addAttribute("genres", genreRepository.findAll());
-        model.addAttribute("allMembers", memberRepository.findAll());
-        model.addAttribute("labels", labelRepository.findAll());
-        model.addAttribute("studios", studioRepository.findAll());
+        formModel(model, new Album());
         return "albumform";
     }
 
@@ -63,29 +62,23 @@ public class AlbumController {
     public String editAlbum(@PathVariable Long id, Model model){
         Album album = albumService.findById(id);
         if (album != null){
-            model.addAttribute("album", album);
-            model.addAttribute("bands", bandRepository.findAll());
-            model.addAttribute("genres", genreRepository.findAll());
-            model.addAttribute("allMembers", memberRepository.findAll());
-            model.addAttribute("labels", labelRepository.findAll());
-            model.addAttribute("studios", studioRepository.findAll());
+            formModel(model, album);
             return "albumform";
         }
         return "redirect:/albums";
     }
 
     @PostMapping("/album")
-    public String postAlbum(@ModelAttribute Album album, Model model){
+    public String postAlbum(@ModelAttribute("album") @Valid Album album, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            formModel(model, album);
+            return "albumform";
+        }
         try {
             albumService.save(album);
         } catch (Exception e){
             log.warn(e.toString());
-            model.addAttribute("album", album);
-            model.addAttribute("bands", bandRepository.findAll());
-            model.addAttribute("genres", genreRepository.findAll());
-            model.addAttribute("allMembers", memberRepository.findAll());
-            model.addAttribute("labels", labelRepository.findAll());
-            model.addAttribute("studios", studioRepository.findAll());
+            formModel(model, album);
             return "albumform";
         }
         return "redirect:/albums";
@@ -99,5 +92,14 @@ public class AlbumController {
             log.warn(e.toString());
         }
         return "redirect:/albums";
+    }
+
+    private void formModel(Model model, Album album){
+        model.addAttribute("album", album);
+        model.addAttribute("bands", bandRepository.findAll());
+        model.addAttribute("genres", genreRepository.findAll());
+        model.addAttribute("allMembers", memberRepository.findAll());
+        model.addAttribute("labels", labelRepository.findAll());
+        model.addAttribute("studios", studioRepository.findAll());
     }
 }

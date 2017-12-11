@@ -8,10 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Transactional
 @Controller
@@ -41,14 +44,16 @@ public class BandController {
     }
 
     @PostMapping("/band")
-    public String postBand(@ModelAttribute Band band, Model model){
+    public String postBand(@ModelAttribute("band") @Valid Band band, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            formModel(band, model);
+            return "bandsform";
+        }
         try {
             bandService.save(band);
         } catch (Exception e){
             log.warn(e.toString());
-            model.addAttribute("band", band);
-            model.addAttribute("genres", genreRepository.findAll());
-            model.addAttribute("allMembers", memberRepository.findAll());
+            formModel(band, model);
             return "bandsform";
         }
         return "redirect:/bands/";
@@ -58,9 +63,7 @@ public class BandController {
     public String editBand (@PathVariable Long id, Model model){
         Band band = bandService.findById(id);
         if (band != null){
-            model.addAttribute("band", band);
-            model.addAttribute("genres", genreRepository.findAll());
-            model.addAttribute("allMembers", memberRepository.findAll());
+            formModel(band, model);
             return "bandsform";
         }
         return "redirect:/bands";
@@ -68,9 +71,7 @@ public class BandController {
 
     @GetMapping("/band/new")
     public String newBand(Model model){
-        model.addAttribute("band", new Band());
-        model.addAttribute("genres", genreRepository.findAll());
-        model.addAttribute("allMembers", memberRepository.findAll());
+        formModel(new Band(), model);
         return "bandsform";
     }
 
@@ -83,4 +84,11 @@ public class BandController {
         }
         return "redirect:/bands";
     }
+
+    private void formModel(Band band, Model model) {
+        model.addAttribute("band", band);
+        model.addAttribute("genres", genreRepository.findAll());
+        model.addAttribute("allMembers", memberRepository.findAll());
+    }
+
 }

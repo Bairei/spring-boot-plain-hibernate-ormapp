@@ -9,10 +9,13 @@ import com.bairei.ormapp.repositories.VenueRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
@@ -39,11 +42,7 @@ public class EventController {
 
     @GetMapping("/event/new")
     public String newEvent(Model model){
-        model.addAttribute("event", new Event());
-        model.addAttribute("bands", bandService.findAll());
-        model.addAttribute("eventTypes", EventType.values());
-        model.addAttribute("venues", venueRepository.findAll());
-        model.addAttribute("promoters", promoterRepository.findAll());
+        formModel(new Event(), model);
         return "eventForm";
     }
 
@@ -51,27 +50,23 @@ public class EventController {
     public String editEvent(@PathVariable Long id, Model model){
         Event event = eventService.findById(id);
         if (event != null) {
-            model.addAttribute("event", event);
-            model.addAttribute("bands", bandService.findAll());
-            model.addAttribute("eventTypes", EventType.values());
-            model.addAttribute("venues", venueRepository.findAll());
-            model.addAttribute("promoters", promoterRepository.findAll());
+            formModel(event, model);
             return "eventForm";
         }
         return "redirect:/events";
     }
 
     @PostMapping("/event")
-    public String postEvent(@ModelAttribute Event event, Model model){
+    public String postEvent(@ModelAttribute("event") @Valid Event event, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            formModel(event, model);
+            return "eventForm";
+        }
         try {
             eventService.save(event);
         } catch (Exception e){
             log.warn(e.toString());
-            model.addAttribute("event", event);
-            model.addAttribute("bands", bandService.findAll());
-            model.addAttribute("eventTypes", EventType.values());
-            model.addAttribute("venues", venueRepository.findAll());
-            model.addAttribute("promoters", promoterRepository.findAll());
+            formModel(event, model);
             return "eventForm";
         }
         return "redirect:/events";
@@ -85,6 +80,14 @@ public class EventController {
             log.warn(e.toString());
         }
         return "redirect:/events";
+    }
+
+    private void formModel(Event event, Model model) {
+        model.addAttribute("event", event);
+        model.addAttribute("bands", bandService.findAll());
+        model.addAttribute("eventTypes", EventType.values());
+        model.addAttribute("venues", venueRepository.findAll());
+        model.addAttribute("promoters", promoterRepository.findAll());
     }
 
 }

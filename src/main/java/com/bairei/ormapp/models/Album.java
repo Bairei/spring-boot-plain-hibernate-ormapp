@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,13 +16,15 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
 
+    @NotNull(message = "Title must not be null!")
+    @Size(min = 1, message = "Title must not be empty!")
     private String title;
 
     @ManyToOne
     @JsonManagedReference
     private Band band;
 
-    @Min(1900) @Max(2017)
+    @Min(value = 1900, message = "Year of release has to be later than 1900!") @Max(value = 2017, message = "Year of release has to not later than 2017!")
     private Integer yearOfRelease;
 
     @ManyToOne

@@ -42,6 +42,7 @@ public class AlbumServiceImpl implements AlbumService {
         album.setMembers(null);
         album.setGenre(null);
         album.setStudios(null);
+        album.setLabel(null);
         albumRepository.save(album);
         albumRepository.deleteById(album.getId());
     }

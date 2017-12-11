@@ -1,6 +1,9 @@
 package com.bairei.ormapp.models;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Venue {
@@ -9,6 +12,8 @@ public class Venue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Venue name must not be null!")
+    @NotEmpty(message = "Venue name must not be empty!")
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)

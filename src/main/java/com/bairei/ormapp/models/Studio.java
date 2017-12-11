@@ -1,8 +1,9 @@
 package com.bairei.ormapp.models;
 
-import org.hibernate.engine.spi.CascadeStyle;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Studio {
@@ -11,6 +12,8 @@ public class Studio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Studio name must not be empty!")
+    @NotNull(message = "Studio name must not be null!")
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL)
