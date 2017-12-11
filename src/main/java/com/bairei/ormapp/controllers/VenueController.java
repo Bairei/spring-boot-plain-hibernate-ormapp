@@ -1,7 +1,7 @@
 package com.bairei.ormapp.controllers;
 
 import com.bairei.ormapp.models.Venue;
-import com.bairei.ormapp.repositories.LocationRepository;
+import com.bairei.ormapp.services.LocationService;
 import com.bairei.ormapp.services.VenueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,11 +19,11 @@ import javax.validation.Valid;
 public class VenueController {
 
     private final VenueService venueService;
-    private final LocationRepository locationRepository;
+    private final LocationService locationService;
 
-    public VenueController(VenueService venueService, LocationRepository locationRepository){
+    public VenueController(VenueService venueService, LocationService locationService){
         this.venueService = venueService;
-        this.locationRepository = locationRepository;
+        this.locationService = locationService;
     }
 
     @GetMapping("/venues")
@@ -77,6 +77,6 @@ public class VenueController {
 
     private void formModel(Venue venue, Model model) {
         model.addAttribute("venue", venue);
-        model.addAttribute("locations", locationRepository.findAll());
+        model.addAttribute("locations", locationService.findAll());
     }
 }

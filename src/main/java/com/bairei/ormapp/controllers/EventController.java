@@ -4,8 +4,8 @@ import com.bairei.ormapp.models.Event;
 import com.bairei.ormapp.models.EventType;
 import com.bairei.ormapp.services.BandService;
 import com.bairei.ormapp.services.EventService;
-import com.bairei.ormapp.repositories.PromoterRepository;
-import com.bairei.ormapp.repositories.VenueRepository;
+import com.bairei.ormapp.services.PromoterService;
+import com.bairei.ormapp.services.VenueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +23,15 @@ public class EventController {
 
     private final EventService eventService;
     private final BandService bandService;
-    private final VenueRepository venueRepository;
-    private final PromoterRepository promoterRepository;
+    private final VenueService venueService;
+    private final PromoterService promoterService;
 
-    public EventController (EventService eventService, BandService bandService, VenueRepository venueRepository,
-                            PromoterRepository promoterRepository){
+    public EventController (EventService eventService, BandService bandService, VenueService venueService,
+                            PromoterService promoterService){
         this.eventService = eventService;
         this.bandService = bandService;
-        this.venueRepository = venueRepository;
-        this.promoterRepository = promoterRepository;
+        this.venueService = venueService;
+        this.promoterService = promoterService;
     }
 
     @GetMapping("/events")
@@ -86,8 +86,8 @@ public class EventController {
         model.addAttribute("event", event);
         model.addAttribute("bands", bandService.findAll());
         model.addAttribute("eventTypes", EventType.values());
-        model.addAttribute("venues", venueRepository.findAll());
-        model.addAttribute("promoters", promoterRepository.findAll());
+        model.addAttribute("venues", venueService.findAll());
+        model.addAttribute("promoters", promoterService.findAll());
     }
 
 }

@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Genre;
-import com.bairei.ormapp.repositories.GenreRepository;
+import com.bairei.ormapp.services.GenreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class StringToGenreConverter implements Converter<String, Genre> {
 
-    private final GenreRepository genreRepository;
+    private final GenreService genreService;
 
     @Autowired
-    public StringToGenreConverter(GenreRepository genreRepository){
-        this.genreRepository = genreRepository;
+    public StringToGenreConverter(GenreService genreService){
+        this.genreService = genreService;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class StringToGenreConverter implements Converter<String, Genre> {
             log.warn(e.toString());
             return null;
         }
-        return genreRepository.findById(id);
+        return genreService.findById(id);
     }
 }

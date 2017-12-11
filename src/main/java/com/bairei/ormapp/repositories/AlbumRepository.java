@@ -13,4 +13,6 @@ public interface AlbumRepository extends GenericRepository<Album, Long> {
     List<Album> findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase(String name);
 
     List<Album> findAlbumsByStudioNameEqualsIgnoreCase(String name);
+
+    List<Album> findAlbumsByLabelNameEqualsIgnoreCase(String name);
 }

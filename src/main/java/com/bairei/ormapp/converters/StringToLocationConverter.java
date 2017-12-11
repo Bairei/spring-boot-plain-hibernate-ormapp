@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Location;
-import com.bairei.ormapp.repositories.LocationRepository;
+import com.bairei.ormapp.services.LocationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StringToLocationConverter implements Converter<String, Location> {
 
-    private final LocationRepository locationRepository;
+    private final LocationService locationService;
 
-    public StringToLocationConverter(LocationRepository locationRepository){
-        this.locationRepository = locationRepository;
+    public StringToLocationConverter(LocationService locationService){
+        this.locationService = locationService;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class StringToLocationConverter implements Converter<String, Location> {
             log.warn(e.toString());
             return null;
         }
-        return locationRepository.findById(id);
+        return locationService.findById(id);
     }
 }

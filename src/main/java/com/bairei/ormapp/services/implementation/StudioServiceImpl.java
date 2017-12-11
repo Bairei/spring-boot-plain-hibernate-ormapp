@@ -65,4 +65,14 @@ public class StudioServiceImpl implements StudioService {
     public Integer count() {
         return studioRepository.count();
     }
+
+    @Override
+    public List<Studio> findStudiosByLocationPlaceEqualsIgnoreCase(String place) {
+        return studioRepository.findStudiosByLocationPlaceEqualsIgnoreCase(place);
+    }
+
+    @Override
+    public List<Studio> findStudiosByLocationPlaceIncluding(String place) {
+        return studioRepository.findStudiosByLocationPlaceIncluding(place);
+    }
 }

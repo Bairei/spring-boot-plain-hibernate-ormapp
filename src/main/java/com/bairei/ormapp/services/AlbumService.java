@@ -8,4 +8,6 @@ public interface AlbumService extends GenericService<Album> {
     List<Album> findAlbumsByTitleIncluding(String title);
     List<Album> findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase(String name);
     List<Album> findAlbumsByStudioNameEqualsIgnoreCase(String name);
+    List<Album> findAlbumsByLabelNameEqualsIgnoreCase(String name);
+    List<Album> findAlbumsByGenreNameEqualsIgnoreCase(String name);
 }

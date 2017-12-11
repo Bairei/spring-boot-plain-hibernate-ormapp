@@ -35,7 +35,10 @@
                 <td th:text="${venue.location.place}"></td>
                 <td>
                     <form action="#" th:action="@{/venue/{id}/delete(id=${venue.id})}" method="post">
-                        <input type="submit" value="delete"/>
+                        <input type="submit" value="Delete"/>
+                    </form>
+                    <form action="#" th:action="@{/venue/{id}/edit(id=${venue.id})}">
+                        <input type="submit" value="Edit"/>
                     </form>
                 </td>
             </tr>

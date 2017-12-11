@@ -58,4 +58,14 @@ public class VenueServiceImpl implements VenueService {
     public Integer count() {
         return venueRepository.count();
     }
+
+    @Override
+    public List<Venue> findVenuesByLocationPlaceEqualsIgnoreCase(String place) {
+        return venueRepository.findVenuesByLocationPlaceEqualsIgnoreCase(place);
+    }
+
+    @Override
+    public List<Venue> listVenuesByLocationPlaceIncluding(String place) {
+        return venueRepository.listVenuesByLocationPlaceIncluding(place);
+    }
 }

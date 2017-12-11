@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Label;
-import com.bairei.ormapp.repositories.LabelRepository;
+import com.bairei.ormapp.services.LabelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StringToLabelConverter implements Converter<String, Label> {
 
-    private final LabelRepository labelRepository;
+    private final LabelService labelService;
 
     @Autowired
-    public StringToLabelConverter (LabelRepository labelRepository){
-        this.labelRepository = labelRepository;
+    public StringToLabelConverter (LabelService labelService){
+        this.labelService = labelService;
     }
 
     @Override
@@ -27,6 +27,6 @@ public class StringToLabelConverter implements Converter<String, Label> {
             log.warn(e.toString());
             return null;
         }
-        return labelRepository.findById(id);
+        return labelService.findById(id);
     }
 }

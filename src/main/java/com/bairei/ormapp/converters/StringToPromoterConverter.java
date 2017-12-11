@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Promoter;
-import com.bairei.ormapp.repositories.PromoterRepository;
+import com.bairei.ormapp.services.PromoterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StringToPromoterConverter implements Converter<String, Promoter> {
 
-    private final PromoterRepository promoterRepository;
+    private final PromoterService promoterService;
 
-    public StringToPromoterConverter(PromoterRepository promoterRepository) {
-        this.promoterRepository = promoterRepository;
+    public StringToPromoterConverter(PromoterService promoterService) {
+        this.promoterService = promoterService;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class StringToPromoterConverter implements Converter<String, Promoter> {
             log.warn(e.toString());
             return null;
         }
-        return promoterRepository.findById(id);
+        return promoterService.findById(id);
     }
 }

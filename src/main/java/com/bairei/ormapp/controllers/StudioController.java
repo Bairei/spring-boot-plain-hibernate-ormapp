@@ -1,7 +1,7 @@
 package com.bairei.ormapp.controllers;
 
 import com.bairei.ormapp.models.Studio;
-import com.bairei.ormapp.repositories.LocationRepository;
+import com.bairei.ormapp.services.LocationService;
 import com.bairei.ormapp.services.StudioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -19,11 +19,11 @@ import javax.validation.Valid;
 public class StudioController {
 
     private final StudioService studioService;
-    private final LocationRepository locationRepository;
+    private final LocationService locationService;
 
-    public StudioController (StudioService studioService, LocationRepository locationRepository){
+    public StudioController (StudioService studioService, LocationService locationService){
         this.studioService = studioService;
-        this.locationRepository = locationRepository;
+        this.locationService = locationService;
     }
 
     @GetMapping("/studio/new")
@@ -77,6 +77,6 @@ public class StudioController {
 
     private void formModel(Studio studio, Model model) {
         model.addAttribute("newStudio", studio);
-        model.addAttribute("locations", locationRepository.findAll());
+        model.addAttribute("locations", locationService.findAll());
     }
 }

@@ -111,4 +111,14 @@ public class AlbumRepositoryImpl implements AlbumRepository {
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
+
+    @Override
+    public List<Album> findAlbumsByLabelNameEqualsIgnoreCase(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Album.class, "album");
+        criteria.createAlias("album.label", "label");
+        criteria.add(Restrictions.eq("label.name", name).ignoreCase());
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
 }

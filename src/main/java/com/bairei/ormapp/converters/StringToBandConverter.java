@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Band;
-import com.bairei.ormapp.repositories.BandRepository;
+import com.bairei.ormapp.services.BandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StringToBandConverter implements Converter<String, Band> {
 
-    private final BandRepository bandRepository;
+    private final BandService bandService;
 
     @Autowired
-    public StringToBandConverter(BandRepository bandRepository){
-        this.bandRepository = bandRepository;
+    public StringToBandConverter(BandService bandService){
+        this.bandService = bandService;
     }
 
     @Override
@@ -27,6 +27,6 @@ public class StringToBandConverter implements Converter<String, Band> {
             log.warn(e.toString());
             return null;
         }
-        return bandRepository.findById(id);
+        return bandService.findById(id);
     }
 }

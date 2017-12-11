@@ -22,39 +22,25 @@
             <thead class="thead-dark">
             <tr>
                 <th>#</th>
-                <th>Event Date:</th>
-                <th>Event Type:</th>
-                <th>Promoted by:</th>
-                <th>Venue:</th>
-                <th>Bands:</th>
+                <th>Name:</th>
+                <th>Year of foundation:</th>
                 <th>Actions:</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="event :${events}">
-                <!--/*@thymesVar id="events" type="com.bairei.ormapp.models.Event"*/-->
-                <td th:text="${event.id}"></td>
-                <td th:text="${event.eventDate}"></td>
-                <td th:text="${event.type}"></td>
-                <td th:text="${event.promoter.name}"></td>
-                <td th:text="${event.venue.name}"></td>
+            <tr th:each="promoter :${promoters}">
+                <!--/*@thymesVar id="promoter" type="com.bairei.ormapp.models.Promoter"*/-->
+                <td th:text="${promoter.id}"></td>
+                <td th:text="${promoter.name}"></td>
+                <td th:text="${promoter.yearFounded}"></td>
                 <td>
-                    <div th:each="band : ${event.bandSet}">
-                        <div th:text="${band.name}"></div>
-                    </div>
-                </td>
-                <td>
-                    <form action="#" th:action="@{/event/{id}/delete(id=${event.id})}" method="post">
-                        <input type="submit" value="Remove"/>
-                    </form>
-                    <form action="#" th:action="@{/event/{id}/edit(id=${event.id})}">
-                        <input type="submit" value="Edit"/>
+                    <form action="#" th:action="@{/promoter/{id}/delete(id=${promoter.id})}" method="post">
+                        <input type="submit" value="Delete"/>
                     </form>
                 </td>
             </tr>
             </tbody>
         </table>
-        <a href="#" th:href="@{/event/new}">New Event</a>
     </div>
 </div>
 </body>

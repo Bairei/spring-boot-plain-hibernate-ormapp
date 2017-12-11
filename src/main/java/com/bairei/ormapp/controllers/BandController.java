@@ -1,9 +1,9 @@
 package com.bairei.ormapp.controllers;
 
 import com.bairei.ormapp.models.Band;
-import com.bairei.ormapp.repositories.GenreRepository;
-import com.bairei.ormapp.repositories.MemberRepository;
 import com.bairei.ormapp.services.BandService;
+import com.bairei.ormapp.services.GenreService;
+import com.bairei.ormapp.services.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,13 +22,13 @@ import javax.validation.Valid;
 public class BandController {
 
     private final BandService bandService;
-    private final MemberRepository memberRepository;
-    private final GenreRepository genreRepository;
+    private final MemberService memberService;
+    private final GenreService genreService;
 
-    public BandController(BandService bandService, GenreRepository genreRepository, MemberRepository memberRepository){
+    public BandController(BandService bandService, GenreService genreService, MemberService memberService){
         this.bandService = bandService;
-        this.memberRepository = memberRepository;
-        this.genreRepository = genreRepository;
+        this.memberService = memberService;
+        this.genreService = genreService;
     }
 
     @GetMapping("/bands")
@@ -87,8 +87,8 @@ public class BandController {
 
     private void formModel(Band band, Model model) {
         model.addAttribute("band", band);
-        model.addAttribute("genres", genreRepository.findAll());
-        model.addAttribute("allMembers", memberRepository.findAll());
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("allMembers", memberService.findAll());
     }
 
 }

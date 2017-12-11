@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Studio;
-import com.bairei.ormapp.repositories.StudioRepository;
+import com.bairei.ormapp.services.StudioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StringToStudioConverter implements Converter<String, Studio> {
 
-    private final StudioRepository studioRepository;
+    private final StudioService studioService;
 
-    public StringToStudioConverter(StudioRepository studioRepository){
-        this.studioRepository = studioRepository;
+    public StringToStudioConverter(StudioService studioService){
+        this.studioService = studioService;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class StringToStudioConverter implements Converter<String, Studio> {
             log.warn(e.toString());
             return null;
         }
-        return studioRepository.findById(id);
+        return studioService.findById(id);
     }
 }

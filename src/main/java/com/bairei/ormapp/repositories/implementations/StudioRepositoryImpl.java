@@ -81,4 +81,14 @@ public class StudioRepositoryImpl implements StudioRepository {
         criteria.add(Restrictions.like("location.place", place, MatchMode.ANYWHERE));
         return criteria.list();
     }
+
+    @Override
+    public List<Studio> findStudiosByLocationPlaceEqualsIgnoreCase(String place) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Studio.class, "studio");
+        criteria.createAlias("studio.location", "location");
+        criteria.add(Restrictions.like("location.place", place).ignoreCase());
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
 }

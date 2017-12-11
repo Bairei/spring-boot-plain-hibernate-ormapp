@@ -91,4 +91,14 @@ public class EventRepositoryImpl implements EventRepository {
         criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
         return criteria.list();
     }
+
+    @Override
+    public List<Event> findEventsByPromoterNameEqualsIgnoreCase(String name) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Event.class, "event");
+        criteria.createAlias("event.promoter", "promoter");
+        criteria.add(Restrictions.eq("promoter.name", name).ignoreCase());
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
 }

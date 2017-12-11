@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface VenueRepository extends GenericRepository<Venue, Long>{
     List<Venue> listVenuesByLocationPlaceIncluding(String place);
+    List<Venue> findVenuesByLocationPlaceEqualsIgnoreCase(String place);
 }

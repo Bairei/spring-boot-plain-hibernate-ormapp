@@ -50,6 +50,9 @@
                     <form action="#" th:action="@{/band/{id}/delete(id=${band.id})}" method="post">
                         <input type="submit" value="Remove"/>
                     </form>
+                    <form action="#" th:action="@{/band/{id}/edit(id=${band.id})}">
+                        <input type="submit" value="Edit"/>
+                    </form>
                 </td>
             </tr>
             </tbody>

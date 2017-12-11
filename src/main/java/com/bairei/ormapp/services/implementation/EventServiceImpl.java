@@ -67,4 +67,14 @@ public class EventServiceImpl implements EventService {
     public List<Event> findEventsByVenueNameEqualsIgnoreCase(String name) {
         return eventRepository.findEventsByVenueNameEqualsIgnoreCase(name);
     }
+
+    @Override
+    public List<Event> findEventsByPromoterNameEqualsIgnoreCase(String name) {
+        return eventRepository.findEventsByPromoterNameEqualsIgnoreCase(name);
+    }
+
+    @Override
+    public List<Event> findEventsByBandsIncludingBandNameEqualsIgnoreCase(String name) {
+        return eventRepository.findEventsByBandsIncludingBandNameEqualsIgnoreCase(name);
+    }
 }

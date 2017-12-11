@@ -33,21 +33,29 @@
                             <a href="#" class="dropdown-item" th:href="@{/events}">Events</a>
                             <a href="#" class="dropdown-item" th:href="@{/studios}">Recording studios</a>
                             <a href="#" class="dropdown-item" th:href="@{/venues}">Venues</a>
+                            <a href="#" class="dropdown-item" th:href="@{/labels}">Labels</a>
+                            <a href="#" class="dropdown-item" th:href="@{/promoters}">Promoters</a>
+                            <a href="#" class="dropdown-item" th:href="@{/genres}">Genres</a>
+                            <a href="#" class="dropdown-item" th:href="@{/locations}">Locations</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Albums<span class="caret"></span></a>
+                        <a href="#" class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New...<span class="caret"></span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown02">
-                            <a href="#" class="dropdown-item" th:href="@{/albums}">Album list</a>
+                            <a href="#" class="dropdown-item" th:href="@{/album/new}">Album</a>
+                            <a href="#" class="dropdown-item" th:href="@{/band/new}">Band</a>
+                            <a href="#" class="dropdown-item" th:href="@{/event/new}">Event</a>
+                            <a href="#" class="dropdown-item" th:href="@{/studio/new}">Studio</a>
+                            <a href="#" class="dropdown-item" th:href="@{/venue/new}">Venue</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Members<span class="caret"></span></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown03">
-                            <a href="#" class="dropdown-item" th:href="@{/members}">Member list</a>
-                            <a href="#" class="dropdown-item" th:href="@{#}">Create a member</a>
-                        </div>
-                    </li>
+                    <!--<li class="nav-item dropdown">-->
+                        <!--<a href="#" class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Members<span class="caret"></span></a>-->
+                        <!--<div class="dropdown-menu" aria-labelledby="dropdown03">-->
+                            <!--<a href="#" class="dropdown-item" th:href="@{/members}">Member list</a>-->
+                            <!--<a href="#" class="dropdown-item" th:href="@{#}">Create a member</a>-->
+                        <!--</div>-->
+                    <!--</li>-->
                 </ul>
             </div>
         </nav>

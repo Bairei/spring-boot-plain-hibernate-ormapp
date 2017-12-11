@@ -1,15 +1,13 @@
 package com.bairei.ormapp.controllers;
 
 import com.bairei.ormapp.models.Album;
-import com.bairei.ormapp.models.Genre;
-import com.bairei.ormapp.repositories.*;
-import com.bairei.ormapp.services.AlbumService;
+import com.bairei.ormapp.repositories.LabelRepository;
+import com.bairei.ormapp.services.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,22 +20,23 @@ import javax.validation.Valid;
 @Controller
 public class AlbumController {
 
+
     private final AlbumService albumService;
-    private final MemberRepository memberRepository;
-    private final LabelRepository labelRepository;
-    private final GenreRepository genreRepository;
-    private final BandRepository bandRepository;
-    private final StudioRepository studioRepository;
+    private final MemberService memberService;
+    private final LabelService labelService;
+    private final GenreService genreService;
+    private final BandService bandService;
+    private final StudioService studioService;
 
 
-    public AlbumController(AlbumService albumService, MemberRepository memberRepository, LabelRepository labelRepository,
-                           GenreRepository genreRepository, BandRepository bandRepository, StudioRepository studioRepository){
+    public AlbumController(AlbumService albumService, MemberService memberService, LabelService labelService,
+                           GenreService genreService, BandService bandService, StudioService studioService){
         this.albumService = albumService;
-        this.genreRepository = genreRepository;
-        this.labelRepository = labelRepository;
-        this.memberRepository = memberRepository;
-        this.bandRepository = bandRepository;
-        this.studioRepository = studioRepository;
+        this.genreService = genreService;
+        this.labelService = labelService;
+        this.memberService = memberService;
+        this.bandService = bandService;
+        this.studioService = studioService;
     }
 
     @GetMapping(value = "/albums")
@@ -96,10 +95,10 @@ public class AlbumController {
 
     private void formModel(Model model, Album album){
         model.addAttribute("album", album);
-        model.addAttribute("bands", bandRepository.findAll());
-        model.addAttribute("genres", genreRepository.findAll());
-        model.addAttribute("allMembers", memberRepository.findAll());
-        model.addAttribute("labels", labelRepository.findAll());
-        model.addAttribute("studios", studioRepository.findAll());
+        model.addAttribute("bands", bandService.findAll());
+        model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("allMembers", memberService.findAll());
+        model.addAttribute("labels", labelService.findAll());
+        model.addAttribute("studios", studioService.findAll());
     }
 }

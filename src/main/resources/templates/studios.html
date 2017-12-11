@@ -37,6 +37,9 @@
                     <form action="#" th:action="@{/studio/{id}/delete(id=${studio.id})}" method="post">
                         <input type="submit" value="Delete"/>
                     </form>
+                    <form action="#" th:action="@{/studio/{id}/edit(id=${studio.id})}">
+                        <input type="submit" value="Edit"/>
+                    </form>
                 </td>
             </tr>
             </tbody>

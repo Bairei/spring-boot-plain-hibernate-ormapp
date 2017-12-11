@@ -1,8 +1,7 @@
 package com.bairei.ormapp.controllers.api;
 
 import com.bairei.ormapp.models.*;
-import com.bairei.ormapp.repositories.*;
-import com.bairei.ormapp.services.GenreService;
+import com.bairei.ormapp.services.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,20 +15,20 @@ import javax.validation.Valid;
 @Slf4j
 public class ApiController {
 
-    private final LabelRepository labelRepository;
-    private final MemberRepository memberRepository;
+    private final LabelService labelService;
+    private final MemberService memberService;
     private final GenreService genreService;
-    private final LocationRepository locationRepository;
-    private final PromoterRepository promoterRepository;
+    private final LocationService locationService;
+    private final PromoterService promoterService;
 
     @Autowired
-    public ApiController(LabelRepository labelRepository, MemberRepository memberRepository, GenreService genreService,
-                         LocationRepository locationRepository, PromoterRepository promoterRepository){
-        this.labelRepository = labelRepository;
-        this.memberRepository = memberRepository;
+    public ApiController(LabelService labelService, MemberService memberService, GenreService genreService,
+                         LocationService locationService, PromoterService promoterService){
+        this.labelService = labelService;
+        this.memberService = memberService;
         this.genreService = genreService;
-        this.locationRepository = locationRepository;
-        this.promoterRepository = promoterRepository;
+        this.locationService = locationService;
+        this.promoterService = promoterService;
     }
 
     @PostMapping(value = "/api/label", consumes = "application/json")
@@ -38,7 +37,7 @@ public class ApiController {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         try {
-            labelRepository.save(label);
+            labelService.save(label);
             return new ResponseEntity<>(label, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -51,7 +50,7 @@ public class ApiController {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         try {
-            memberRepository.save(member);
+            memberService.save(member);
             return new ResponseEntity<>(member, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -77,7 +76,7 @@ public class ApiController {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         try {
-            locationRepository.save(location);
+            locationService.save(location);
             return new ResponseEntity<>(location, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -90,7 +89,7 @@ public class ApiController {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         try {
-            promoterRepository.save(promoter);
+            promoterService.save(promoter);
             return new ResponseEntity<>(promoter, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity<>(e.toString(), HttpStatus.INTERNAL_SERVER_ERROR);

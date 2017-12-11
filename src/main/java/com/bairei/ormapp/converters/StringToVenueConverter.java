@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Venue;
-import com.bairei.ormapp.repositories.VenueRepository;
+import com.bairei.ormapp.services.VenueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StringToVenueConverter implements Converter<String, Venue> {
 
-    private final VenueRepository venueRepository;
+    private final VenueService venueService;
 
-    public StringToVenueConverter(VenueRepository venueRepository) {
-        this.venueRepository = venueRepository;
+    public StringToVenueConverter(VenueService venueService) {
+        this.venueService = venueService;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class StringToVenueConverter implements Converter<String, Venue> {
             log.warn(e.toString());
             return null;
         }
-        return venueRepository.findById(id);
+        return venueService.findById(id);
     }
 }

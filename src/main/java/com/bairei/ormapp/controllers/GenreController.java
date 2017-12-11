@@ -1,28 +1,26 @@
 package com.bairei.ormapp.controllers;
 
 import com.bairei.ormapp.models.Genre;
-import com.bairei.ormapp.repositories.GenreRepository;
+import com.bairei.ormapp.services.GenreService;
 import com.bairei.ormapp.utils.AjaxUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Slf4j
 public class GenreController {
 
-    private final GenreRepository genreRepository;
+    private final GenreService genreService;
 
     @Autowired
-    public GenreController(GenreRepository genreRepository){
-        this.genreRepository = genreRepository;
+    public GenreController(GenreService genreService){
+        this.genreService = genreService;
     }
 
     @GetMapping("/genre/new")
@@ -33,6 +31,23 @@ public class GenreController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/genres")
+    public String listGenres(Model model){
+        model.addAttribute("genres", genreService.findAll());
+        return "genres";
+    }
+
+    @PostMapping("/genre/{id}/delete")
+    public String deleteGenre(@PathVariable Long id){
+        try {
+            genreService.deleteById(id);
+        } catch (Exception e){
+            log.warn(e.toString());
+        }
+        return "redirect:/genres";
+    }
+
 // Not sure if it will be used later, but better keep it, just in case
 //    @PostMapping("/genre")
 //    public String postGenre(@ModelAttribute Genre genre, Model model, HttpServletRequest request){

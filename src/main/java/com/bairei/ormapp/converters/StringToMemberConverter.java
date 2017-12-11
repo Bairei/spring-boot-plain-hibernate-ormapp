@@ -1,7 +1,7 @@
 package com.bairei.ormapp.converters;
 
 import com.bairei.ormapp.models.Member;
-import com.bairei.ormapp.repositories.MemberRepository;
+import com.bairei.ormapp.services.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -12,11 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class StringToMemberConverter implements Converter<String, Member> {
 
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @Autowired
-    public StringToMemberConverter(MemberRepository memberRepository){
-        this.memberRepository = memberRepository;
+    public StringToMemberConverter(MemberService memberService){
+        this.memberService = memberService;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class StringToMemberConverter implements Converter<String, Member> {
             log.warn(e.toString());
             return null;
         }
-        return memberRepository.findById(id);
+        return memberService.findById(id);
     }
 }

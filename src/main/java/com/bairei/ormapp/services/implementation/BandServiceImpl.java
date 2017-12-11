@@ -3,7 +3,7 @@ package com.bairei.ormapp.services.implementation;
 import com.bairei.ormapp.models.Band;
 import com.bairei.ormapp.models.Event;
 import com.bairei.ormapp.repositories.BandRepository;
-import com.bairei.ormapp.repositories.EventRepository;
+import com.bairei.ormapp.services.EventService;
 import com.bairei.ormapp.services.BandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,11 +18,11 @@ import java.util.Set;
 public class BandServiceImpl implements BandService {
 
     private final BandRepository bandRepository;
-    private final EventRepository eventRepository;
+    private final EventService eventService;
 
-    public BandServiceImpl(BandRepository bandRepository, EventRepository eventRepository) {
+    public BandServiceImpl(BandRepository bandRepository, EventService eventService) {
         this.bandRepository = bandRepository;
-        this.eventRepository = eventRepository;
+        this.eventService = eventService;
     }
 
     @Override
@@ -53,15 +53,15 @@ public class BandServiceImpl implements BandService {
         band.setGenre(null);
         band.setMembers(new HashSet<>());
         bandRepository.save(band);
-        for (Event event: eventRepository.findEventsByBandsIncludingBandNameEqualsIgnoreCase(band.getName())){
+        for (Event event: eventService.findEventsByBandsIncludingBandNameEqualsIgnoreCase(band.getName())){
             if(event.getBandSet().contains(band)) {
                 Set<Band> bands = event.getBandSet();
                 bands.remove(band);
                 event.setBandSet(bands);
                 if(event.getBandSet().size() < 1){
-                    eventRepository.delete(event);
+                    eventService.deleteById(event.getId());
                 } else {
-                    eventRepository.save(event);
+                    eventService.save(event);
                 }
             }
         }
@@ -81,5 +81,10 @@ public class BandServiceImpl implements BandService {
     @Override
     public List<Band> findBandsByMembersIncludingMemberNameEqualsIgnoreCase(String name) {
         return bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase(name);
+    }
+
+    @Override
+    public List<Band> findBandsByGenreNameEqualsIgnoreCase(String name) {
+        return bandRepository.findBandsByGenreNameEqualsIgnoreCase(name);
     }
 }

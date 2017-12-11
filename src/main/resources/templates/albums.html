@@ -55,6 +55,9 @@
                         <form action="#" th:action="@{/album/{id}/delete(id=${album.id})}" method="post">
                             <input type="submit" value="Remove"/>
                         </form>
+                        <form action="#" th:action="@{/album/{id}/edit(id=${album.id})}">
+                            <input type="submit" value="Edit"/>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

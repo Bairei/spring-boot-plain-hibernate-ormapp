@@ -1,9 +1,10 @@
 package com.bairei.ormapp.services.implementation;
 
+import com.bairei.ormapp.models.Album;
 import com.bairei.ormapp.models.Band;
 import com.bairei.ormapp.models.Genre;
-import com.bairei.ormapp.repositories.AlbumRepository;
-import com.bairei.ormapp.repositories.BandRepository;
+import com.bairei.ormapp.services.AlbumService;
+import com.bairei.ormapp.services.BandService;
 import com.bairei.ormapp.repositories.GenreRepository;
 import com.bairei.ormapp.services.GenreService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +20,12 @@ import java.util.stream.Collectors;
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
-    private final BandRepository bandRepository;
-    private final AlbumRepository albumRepository;
+    private final BandService bandService;
+    private final AlbumService albumService;
 
-    public GenreServiceImpl(GenreRepository genreRepository, BandRepository bandRepository, AlbumRepository albumRepository){
-        this.albumRepository = albumRepository;
-        this.bandRepository = bandRepository;
+    public GenreServiceImpl(GenreRepository genreRepository, BandService bandService, AlbumService albumService){
+        this.albumService = albumService;
+        this.bandService = bandService;
         this.genreRepository = genreRepository;
     }
 
@@ -50,7 +51,18 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public void deleteById(Long aLong) {
-        genreRepository.deleteById(aLong);
+        Genre genre = genreRepository.findById(aLong);
+        if (genre != null){
+            List<Album> albums = albumService.findAlbumsByGenreNameEqualsIgnoreCase(genre.getName());
+            for (Album album: albums){
+                albumService.deleteById(album.getId());
+            }
+            List<Band> bands = bandService.findBandsByGenreNameEqualsIgnoreCase(genre.getName());
+            for (Band band: bands){
+                bandService.deleteById(band.getId());
+            }
+            genreRepository.deleteById(aLong);
+        }
     }
 
     @Override
@@ -60,7 +72,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public Band recommendABand(Long id) {
-        Optional<Band> band = bandRepository.findAll().stream()
+        Optional<Band> band = bandService.findAll().stream()
                 .filter(b -> b.getGenre().getId().equals(id))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), collected ->{
                     Collections.shuffle(collected);

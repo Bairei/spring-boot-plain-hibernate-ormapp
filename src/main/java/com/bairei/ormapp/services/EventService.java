@@ -8,4 +8,8 @@ public interface EventService extends GenericService<Event>{
     List<Event> list5UpcomingEvents();
 
     List<Event> findEventsByVenueNameEqualsIgnoreCase(String name);
+
+    List<Event> findEventsByPromoterNameEqualsIgnoreCase(String name);
+
+    List<Event> findEventsByBandsIncludingBandNameEqualsIgnoreCase(String name);
 }

@@ -81,4 +81,14 @@ public class VenueRepositoryImpl implements VenueRepository {
         return criteria.list();
     }
 
+    @Override
+    public List<Venue> findVenuesByLocationPlaceEqualsIgnoreCase(String place) {
+        Session session = this.sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(Venue.class, "venue");
+        criteria.createAlias("venue.location", "location");
+        criteria.add(Restrictions.eq("location.place", place).ignoreCase());
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return criteria.list();
+    }
+
 }
