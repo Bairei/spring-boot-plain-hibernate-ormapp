@@ -6,10 +6,10 @@ import com.bairei.ormapp.utils.AjaxUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
@@ -46,4 +46,30 @@ public class PromoterController {
         return "redirect:/promoters";
     }
 
+
+    @GetMapping("/promoter/{id}/edit")
+    public String newPromoter(Model model, @PathVariable("id") Long id){
+        Promoter promoter = promoterService.findById(id);
+        if (promoter != null) {
+            model.addAttribute("newPromoter", promoterService.findById(id));
+            return "staticpromoterform";
+        }
+        return "redirect:/promoters";
+    }
+
+    @PostMapping("/promoter")
+    public String postPromoter(@ModelAttribute("newPromoter") @Valid Promoter promoter, Model model, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newPromoter", promoter);
+            return "staticpromoterform";
+        }
+        try {
+            promoterService.save(promoter);
+            return "redirect:/promoters";
+        } catch (Exception e){
+            log.warn(e.getMessage());
+            model.addAttribute("newPromoter", promoter);
+            return "staticpromoterform";
+        }
+    }
 }

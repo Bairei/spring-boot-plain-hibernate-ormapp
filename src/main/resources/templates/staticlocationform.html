@@ -19,7 +19,7 @@
     <div class="jumbotron">
         <p class="lead">New Location:</p>
         <!--/*@thymesVar id="newLocation" type="com.bairei.ormapp.models.Location"*/-->
-        <form class="form-horizontal" id="location-form">
+        <form class="form-horizontal" id="location-form" th:object="${newLocation}" th:action="@{/location}" th:method="post">
             <ul class="list-form"><li class="list-group-item list-group-item-danger" th:each="err : ${#fields.errors('*')}" th:text="${err}">Error in form</li></ul>
             <input type="hidden" id="id-input" th:field="${newLocation.id}"/>
             <div class="form-group">
@@ -29,11 +29,10 @@
                 </div>
             </div>
             <div class="row">
-                <input type="button" id="location-form-submit" class="btn btn-default" value="Create"/>
+                <input type="submit" id="location-form-submit" class="btn btn-default" value="Create"/>
             </div>
         </form>
     </div>
-    <script th:inline="javascript" type="text/javascript" src="../static/js/ajax.js" th:src="@{/js/ajax.js}"></script>
 </div>
 </body>
 </html>

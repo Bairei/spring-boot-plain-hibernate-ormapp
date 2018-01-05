@@ -8,10 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -47,5 +47,31 @@ public class MemberController {
             log.warn(e.toString());
         }
         return "redirect:/members";
+    }
+
+    @GetMapping("/member/{id}/edit")
+    public String newMember(Model model, @PathVariable("id") Long id){
+        Member member = memberService.findById(id);
+        if (member != null) {
+            model.addAttribute("newMember", memberService.findById(id));
+            return "staticmemberform";
+        }
+        return "redirect:/members";
+    }
+
+    @PostMapping("/member")
+    public String postMember(@ModelAttribute("newMember") @Valid Member member, Model model, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newMember", member);
+            return "staticmemberform";
+        }
+        try {
+            memberService.save(member);
+            return "redirect:/members";
+        } catch (Exception e){
+            log.warn(e.getMessage());
+            model.addAttribute("newMember", member);
+            return "staticmemberform";
+        }
     }
 }

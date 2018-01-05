@@ -26,14 +26,14 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Studio name:</label>
                 <div class="col-sm-10">
-                    <input type="text" required="true" class="form-control" th:field="*{name}"/>
+                    <input type="text" required="required" class="form-control" th:field="*{name}"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Located in:</label>
                 <div class="col-sm-10">
                     <!--/*@thymesVar id="locations" type="com.bairei.ormapp.models.Location"*/-->
-                    <select th:field="*{location}">
+                    <select th:field="*{location}" required="required">
                         <option value="" th:selected="selected" th:disabled="disabled">---</option>
                         <option th:each="location : ${locations}" th:value="${location.id}" th:text="${location.place}" ></option>
                     </select>

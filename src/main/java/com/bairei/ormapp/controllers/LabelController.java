@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -45,5 +45,31 @@ public class LabelController {
             log.warn(e.toString());
         }
         return "redirect:/labels";
+    }
+
+    @GetMapping("/label/{id}/edit")
+    public String newLabel(Model model, @PathVariable("id") Long id){
+        Label label = labelService.findById(id);
+        if (label != null) {
+            model.addAttribute("newLabel", labelService.findById(id));
+            return "staticlabelform";
+        }
+        return "redirect:/labels";
+    }
+
+    @PostMapping("/label")
+    public String postLabel(@ModelAttribute("newLabel") @Valid Label label, Model model, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newLabel", label);
+            return "staticlabelform";
+        }
+        try {
+            labelService.save(label);
+            return "redirect:/labels";
+        } catch (Exception e){
+            log.warn(e.getMessage());
+            model.addAttribute("newLabel", label);
+            return "staticlabelform";
+        }
     }
 }

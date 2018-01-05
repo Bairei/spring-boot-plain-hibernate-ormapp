@@ -6,10 +6,10 @@ import com.bairei.ormapp.utils.AjaxUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
@@ -46,4 +46,29 @@ public class LocationController {
         return "redirect:/locations";
     }
 
+    @GetMapping("/location/{id}/edit")
+    public String newLocation(Model model, @PathVariable("id") Long id){
+        Location location = locationService.findById(id);
+        if (location != null) {
+            model.addAttribute("newLocation", locationService.findById(id));
+            return "staticlocationform";
+        }
+        return "redirect:/locations";
+    }
+
+    @PostMapping("/location")
+    public String postLocation(@ModelAttribute("newLocation") @Valid Location location, Model model, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newLocation", location);
+            return "staticlocationform";
+        }
+        try {
+            locationService.save(location);
+            return "redirect:/locations";
+        } catch (Exception e){
+            log.warn(e.getMessage());
+            model.addAttribute("newLocation", location);
+            return "staticlocationform";
+        }
+    }
 }

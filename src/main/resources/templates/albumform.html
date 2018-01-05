@@ -26,19 +26,19 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Title:</label>
                 <div class="col-sm-10">
-                    <input type="text" required="true" class="form-control" th:field="*{title}"/>
+                    <input type="text" required="required" class="form-control" th:field="*{title}"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Recorded in:</label>
                 <div class="col-sm-10">
-                    <input type="number" required="true" class="form-control" th:field="*{yearOfRelease}"/>
+                    <input type="number" required="required" class="form-control" th:field="*{yearOfRelease}"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Recorded by:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{band}">
+                    <select th:field="*{band}" required="required">
                         <!--/*@thymesVar id="bands" type="com.bairei.ormapp.models.Band"*/-->
                         <option value="" selected="selected" disabled="disabled">---</option>
                         <option th:each="band : ${bands}" th:value="${band.id}" th:text="${band.name}" ></option>
@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Genre:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{{genre}}">
+                    <select th:field="*{{genre}}" required="required">
                         <!--/*@thymesVar id="genres" type="com.bairei.ormapp.models.Genre"*/-->
                         <option value="" selected="selected" disabled="disabled">---</option>
                         <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}" ></option>
@@ -59,7 +59,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Label:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{label}">
+                    <select th:field="*{label}" required="required">
                         <!--/*@thymesVar id="labels" type="com.bairei.ormapp.models.Label"*/-->
                         <option value="" selected="selected" disabled="disabled">---</option>
                         <option th:each="lab : ${labels}" th:value="${lab.id}" th:text="${lab.name}" ></option>

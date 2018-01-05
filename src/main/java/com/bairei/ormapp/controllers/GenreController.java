@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @Slf4j
@@ -46,6 +46,32 @@ public class GenreController {
             log.warn(e.toString());
         }
         return "redirect:/genres";
+    }
+
+    @GetMapping("/genre/{id}/edit")
+    public String newGenre(Model model, @PathVariable("id") Long id){
+        Genre genre = genreService.findById(id);
+        if (genre != null) {
+            model.addAttribute("newGenre", genreService.findById(id));
+            return "staticgenreform";
+        }
+        return "redirect:/genres";
+    }
+
+    @PostMapping("/genre")
+    public String postGenre(@ModelAttribute("newGenre") @Valid Genre genre, Model model, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("newGenre", genre);
+            return "staticgenreform";
+        }
+        try {
+            genreService.save(genre);
+            return "redirect:/genres";
+        } catch (Exception e){
+            log.warn(e.getMessage());
+            model.addAttribute("newGenre", genre);
+            return "staticgenreform";
+        }
     }
 
 // Not sure if it will be used later, but better keep it, just in case
