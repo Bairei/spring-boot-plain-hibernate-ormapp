@@ -66,7 +66,7 @@ public class StudioController {
     }
 
     @PostMapping("/studio/{id}/delete")
-    public String deleteStudio(@PathVariable Long id, Model model){
+    public String deleteStudio(@PathVariable Long id){
         try {
             studioService.deleteById(id);
         } catch (Exception e){

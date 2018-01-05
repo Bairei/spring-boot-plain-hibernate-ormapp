@@ -45,12 +45,6 @@ public class AlbumController {
         return "albums";
     }
 
-    @GetMapping("/album/search/{title}")
-    public String albumListByTitle(@PathVariable String title, Model model){
-        model.addAttribute(albumService.findAlbumsByTitleIncluding(title));
-        return "albums";
-    }
-
     @GetMapping("/album/new")
     public String newAlbumForm(Model model){
         formModel(model, new Album());

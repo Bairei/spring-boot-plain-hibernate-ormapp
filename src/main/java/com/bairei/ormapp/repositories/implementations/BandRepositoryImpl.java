@@ -76,15 +76,6 @@ public class BandRepositoryImpl implements BandRepository{
     }
 
     @Override
-    public List<Band> findBandsByNameIncluding(String name) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Band.class);
-        criteria.add(Restrictions.like("name", name, MatchMode.ANYWHERE));
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        return criteria.list();
-    }
-
-    @Override
     public List<Band> findBandsByGenreNameEqualsIgnoreCase(String genreName){
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Band.class);

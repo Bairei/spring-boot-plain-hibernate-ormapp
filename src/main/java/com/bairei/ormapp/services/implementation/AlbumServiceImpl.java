@@ -53,11 +53,6 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public List<Album> findAlbumsByTitleIncluding(String title) {
-        return albumRepository.findAlbumsByTitleIncluding(title);
-    }
-
-    @Override
     public List<Album> findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase(String name) {
         return albumRepository.findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase(name);
     }

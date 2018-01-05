@@ -70,12 +70,4 @@ public class MemberRepositoryImpl implements MemberRepository {
     public Integer count() {
         return findAll().size();
     }
-
-    @Override
-    public Member findMemberByNameEqualsIgnoreCase(String name) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Member.class);
-        criteria.add(Restrictions.eq("name", name).ignoreCase());
-        return (Member) criteria.uniqueResult();
-    }
 }

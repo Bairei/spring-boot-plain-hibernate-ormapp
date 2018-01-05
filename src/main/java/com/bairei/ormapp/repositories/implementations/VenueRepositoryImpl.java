@@ -73,15 +73,6 @@ public class VenueRepositoryImpl implements VenueRepository {
     }
 
     @Override
-    public List<Venue> listVenuesByLocationPlaceIncluding(String place) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Venue.class, "venue");
-        criteria.createAlias("venue.location", "location");
-        criteria.add(Restrictions.like("location.place", place, MatchMode.ANYWHERE));
-        return criteria.list();
-    }
-
-    @Override
     public List<Venue> findVenuesByLocationPlaceEqualsIgnoreCase(String place) {
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Venue.class, "venue");

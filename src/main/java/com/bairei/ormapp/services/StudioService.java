@@ -8,5 +8,4 @@ public interface StudioService extends GenericService<Studio>{
 
     List<Studio> findStudiosByLocationPlaceEqualsIgnoreCase(String place);
 
-    List<Studio> findStudiosByLocationPlaceIncluding(String place);
 }

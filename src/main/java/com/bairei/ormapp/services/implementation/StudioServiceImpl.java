@@ -71,8 +71,4 @@ public class StudioServiceImpl implements StudioService {
         return studioRepository.findStudiosByLocationPlaceEqualsIgnoreCase(place);
     }
 
-    @Override
-    public List<Studio> findStudiosByLocationPlaceIncluding(String place) {
-        return studioRepository.findStudiosByLocationPlaceIncluding(place);
-    }
 }

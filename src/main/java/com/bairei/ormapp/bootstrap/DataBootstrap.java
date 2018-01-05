@@ -60,16 +60,6 @@ public class DataBootstrap implements ApplicationListener<ContextRefreshedEvent>
                 && venueService.count().equals(0)){
             initData();
         }
-        log.info("bands by name including ayer: " + String.valueOf(bandService.findBandsByNameIncluding("ayer").size()));
-        log.info("albums by title including s in the ab: " + String.valueOf(albumService.findAlbumsByTitleIncluding("s in the ab").size()));
-        log.info("bands by genre name equals thrash Metal (ignoring case): " + String.valueOf(bandService.findBandsByGenreNameEqualsIgnoreCase("thrash Metal")));
-        log.info("albums by genre name equals thrash Metal (ignoring case): " + String.valueOf(albumService.findAlbumsByGenreNameEqualsIgnoreCase("thrash Metal").size()));
-        log.info("albums by members including name Jeff Hanneman: " + String.valueOf(albumService.findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase("jeff haNNeman")));
-        log.info("bands by members including name Jeff Hanneman: " + String.valueOf(bandService.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("jeff hanneman")));
-        log.info("bands by members including name Tom Araya: " + String.valueOf(bandService.findBandsByMembersIncludingMemberNameEqualsIgnoreCase("TOM araYa")));
-        log.info("events by bands including band name slayer:" + eventService.findEventsByBandsIncludingBandNameEqualsIgnoreCase("slayer"));
-        log.info("studios by location place like warsaw: " + studioService.findStudiosByLocationPlaceIncluding("warsaw"));
-        log.info("venues by location place like warsaw: " + venueService.listVenuesByLocationPlaceIncluding("warsaw").toString());
     }
 
     private void initData(){

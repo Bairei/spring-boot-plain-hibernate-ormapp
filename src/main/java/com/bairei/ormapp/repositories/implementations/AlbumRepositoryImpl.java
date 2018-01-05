@@ -74,15 +74,6 @@ public class AlbumRepositoryImpl implements AlbumRepository {
     }
 
     @Override
-    public List<Album> findAlbumsByTitleIncluding(String title) {
-        Session session = this.sessionFactory.getCurrentSession();
-        Criteria criteria = session.createCriteria(Album.class);
-        criteria.add(Restrictions.like("title", title,  MatchMode.ANYWHERE));
-        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-        return criteria.list();
-    }
-
-    @Override
     public List<Album> findAlbumsByGenreNameEqualsIgnoreCase(String genreName){
         Session session = this.sessionFactory.getCurrentSession();
         Criteria criteria = session.createCriteria(Album.class);

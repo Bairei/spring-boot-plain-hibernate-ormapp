@@ -37,12 +37,6 @@ public class BandController {
         return "bands";
     }
 
-    @GetMapping("/band/search/{name}")
-    public String bandListByName(@PathVariable String name, Model model){
-        model.addAttribute("bands", bandService.findBandsByNameIncluding(name));
-        return "bands";
-    }
-
     @PostMapping("/band")
     public String postBand(@ModelAttribute("band") @Valid Band band, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){

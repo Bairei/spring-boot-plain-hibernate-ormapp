@@ -7,5 +7,4 @@ import java.util.List;
 public interface VenueService extends GenericService<Venue> {
     List<Venue> findVenuesByLocationPlaceEqualsIgnoreCase(String place);
 
-    List<Venue> listVenuesByLocationPlaceIncluding(String place);
 }

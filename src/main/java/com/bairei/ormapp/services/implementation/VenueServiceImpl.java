@@ -63,9 +63,4 @@ public class VenueServiceImpl implements VenueService {
     public List<Venue> findVenuesByLocationPlaceEqualsIgnoreCase(String place) {
         return venueRepository.findVenuesByLocationPlaceEqualsIgnoreCase(place);
     }
-
-    @Override
-    public List<Venue> listVenuesByLocationPlaceIncluding(String place) {
-        return venueRepository.listVenuesByLocationPlaceIncluding(place);
-    }
 }

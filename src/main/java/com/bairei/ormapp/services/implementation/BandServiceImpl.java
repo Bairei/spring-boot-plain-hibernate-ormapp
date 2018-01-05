@@ -74,11 +74,6 @@ public class BandServiceImpl implements BandService {
     }
 
     @Override
-    public List<Band> findBandsByNameIncluding(String name) {
-        return bandRepository.findBandsByNameIncluding(name);
-    }
-
-    @Override
     public List<Band> findBandsByMembersIncludingMemberNameEqualsIgnoreCase(String name) {
         return bandRepository.findBandsByMembersIncludingMemberNameEqualsIgnoreCase(name);
     }
