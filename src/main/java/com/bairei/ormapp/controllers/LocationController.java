@@ -50,7 +50,7 @@ public class LocationController {
     public String newLocation(Model model, @PathVariable("id") Long id){
         Location location = locationService.findById(id);
         if (location != null) {
-            model.addAttribute("newLocation", locationService.findById(id));
+            model.addAttribute("newLocation", location);
             return "staticlocationform";
         }
         return "redirect:/locations";

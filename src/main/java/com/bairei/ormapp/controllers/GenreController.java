@@ -52,7 +52,7 @@ public class GenreController {
     public String newGenre(Model model, @PathVariable("id") Long id){
         Genre genre = genreService.findById(id);
         if (genre != null) {
-            model.addAttribute("newGenre", genreService.findById(id));
+            model.addAttribute("newGenre", genre);
             return "staticgenreform";
         }
         return "redirect:/genres";

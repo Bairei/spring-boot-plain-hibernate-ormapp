@@ -51,7 +51,7 @@ public class LabelController {
     public String newLabel(Model model, @PathVariable("id") Long id){
         Label label = labelService.findById(id);
         if (label != null) {
-            model.addAttribute("newLabel", labelService.findById(id));
+            model.addAttribute("newLabel", label);
             return "staticlabelform";
         }
         return "redirect:/labels";

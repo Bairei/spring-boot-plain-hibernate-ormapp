@@ -53,7 +53,7 @@ public class MemberController {
     public String newMember(Model model, @PathVariable("id") Long id){
         Member member = memberService.findById(id);
         if (member != null) {
-            model.addAttribute("newMember", memberService.findById(id));
+            model.addAttribute("newMember", member);
             return "staticmemberform";
         }
         return "redirect:/members";

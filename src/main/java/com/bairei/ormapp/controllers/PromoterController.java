@@ -51,7 +51,7 @@ public class PromoterController {
     public String newPromoter(Model model, @PathVariable("id") Long id){
         Promoter promoter = promoterService.findById(id);
         if (promoter != null) {
-            model.addAttribute("newPromoter", promoterService.findById(id));
+            model.addAttribute("newPromoter", promoter);
             return "staticpromoterform";
         }
         return "redirect:/promoters";
