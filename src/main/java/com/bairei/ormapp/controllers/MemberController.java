@@ -36,7 +36,7 @@ public class MemberController {
         if (AjaxUtils.isAjaxRequest(requestedWith)) {
             return "memberform :: memberForm";
         }
-        return "redirect:/members";
+        return "staticmemberform";
     }
 
     @PostMapping("/member/{id}/delete")

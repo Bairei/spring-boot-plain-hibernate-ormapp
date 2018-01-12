@@ -27,7 +27,7 @@ public class PromoterController {
         if (AjaxUtils.isAjaxRequest(requestedWith)) {
             return "promoterForm :: promoterForm";
         }
-        return "redirect:/";
+        return "staticpromoterform";
     }
 
     @GetMapping("/promoters")

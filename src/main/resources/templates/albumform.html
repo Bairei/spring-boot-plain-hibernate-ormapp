@@ -18,7 +18,7 @@
 <div class="container">
     <th:block th:include="header :: header"></th:block>
     <div class="jumbotron">
-        <p class="lead">New Band:</p>
+        <p class="lead">New Album:</p>
         <!--/*@thymesVar id="album" type="com.bairei.ormapp.models.Album"*/-->
         <form class="form-horizontal" th:object="${album}" th:action="@{/album}" th:method="post">
             <ul class="list-form"><li class="list-group-item list-group-item-danger" th:each="err : ${#fields.errors('*')}" th:text="${err}">Error in form</li></ul>
@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Recorded by:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{band}" required="required">
+                    <select th:field="*{band}" required="required" class="custom-select">
                         <!--/*@thymesVar id="bands" type="com.bairei.ormapp.models.Band"*/-->
                         <option value="" selected="selected" disabled="disabled">---</option>
                         <option th:each="band : ${bands}" th:value="${band.id}" th:text="${band.name}" ></option>
@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Genre:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{{genre}}" required="required">
+                    <select th:field="*{{genre}}" required="required" class="custom-select">
                         <!--/*@thymesVar id="genres" type="com.bairei.ormapp.models.Genre"*/-->
                         <option value="" selected="selected" disabled="disabled">---</option>
                         <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}" ></option>
@@ -59,7 +59,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Label:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{label}" required="required">
+                    <select th:field="*{label}" required="required" class="custom-select">
                         <!--/*@thymesVar id="labels" type="com.bairei.ormapp.models.Label"*/-->
                         <option value="" selected="selected" disabled="disabled">---</option>
                         <option th:each="lab : ${labels}" th:value="${lab.id}" th:text="${lab.name}" ></option>
@@ -70,7 +70,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Members:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{members}" multiple="multiple">
+                    <select th:field="*{members}" multiple="multiple" class="custom-select">
                         <!--/*@thymesVar id="allMembers" type="com.bairei.ormapp.models.Member"*/-->
                         <option th:each="member : ${allMembers}" th:value="${member.id}" th:text="${member.name}" ></option>
                     </select>
@@ -80,7 +80,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Studios:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{studios}" multiple="multiple">
+                    <select th:field="*{studios}" multiple="multiple" class="custom-select">
                         <!--/*@thymesVar id="studios" type="com.bairei.ormapp.models.Studio"*/-->
                         <option th:each="studio : ${studios}" th:value="${studio.id}" th:text="${studio.name}" ></option>
                     </select>
@@ -101,7 +101,7 @@
             </div>
             <div class="modal-body" id="myModalBody">Lorem ipsum</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

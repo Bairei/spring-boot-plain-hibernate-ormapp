@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Genre:</label>
                     <div class="col-sm-10">
-                        <select th:field="*{{genre}}" required="required">
+                        <select th:field="*{{genre}}" required="required" class="custom-select">
                             <!--/*@thymesVar id="genres" type="com.bairei.ormapp.models.Genre"*/-->
                             <option value="" selected="selected" disabled="disabled">---</option>
                             <option th:each="gen : ${genres}" th:value="${gen.id}" th:text="${gen.name}"></option>
@@ -55,7 +55,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Members:</label>
                     <div class="col-sm-10">
-                        <select th:field="*{members}" multiple="multiple">
+                        <select th:field="*{members}" multiple="multiple" class="custom-select">
                             <!--/*@thymesVar id="allMembers" type="com.bairei.ormapp.models.Member"*/-->
                             <option th:each="member : ${allMembers}" th:value="${{member.id}}" th:text="${member.name}"></option>
                         </select>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="modal-body" id="myModalBody">Lorem ipsum</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

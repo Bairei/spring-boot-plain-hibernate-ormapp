@@ -21,7 +21,7 @@ public class Promoter {
     private String name;
 
     @Min(value = 1900, message = "Promoter's year of foundation must be not earlier than 1900!")
-    @Max(value = 2018, message = "Promoter's year of foundation must be not later than 2017!")
+    @Max(value = 2018, message = "Promoter's year of foundation must be not later than 2018!")
     private Integer yearFounded;
 
     public Promoter() {

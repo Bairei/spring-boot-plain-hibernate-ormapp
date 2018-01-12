@@ -28,7 +28,7 @@ public class LabelController {
         if (AjaxUtils.isAjaxRequest(requestedWith)) {
             return "labelform :: labelForm";
         }
-        return "redirect:/";
+        return "staticlabelform";
     }
 
     @GetMapping("/labels")

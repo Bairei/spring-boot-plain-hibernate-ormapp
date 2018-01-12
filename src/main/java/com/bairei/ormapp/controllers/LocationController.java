@@ -27,7 +27,7 @@ public class LocationController {
         if (AjaxUtils.isAjaxRequest(requestedWith)) {
             return "locationform :: locationForm";
         }
-        return "redirect:/";
+        return "staticlocationform";
     }
 
     @GetMapping("/locations")

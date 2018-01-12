@@ -36,7 +36,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Type of event:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{type}" required="required">
+                    <select th:field="*{type}" required="required" class="custom-select">
                         <!--/*@thymesVar id="eventTypes" type="com.bairei.ormapp.models.EventType"*/-->
                         <option th:each="eventType : ${eventTypes}" th:value="${eventType}" th:text="${eventType}" ></option>
                     </select>
@@ -45,7 +45,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Promoted by:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{promoter}" required="required">
+                    <select th:field="*{promoter}" required="required" class="custom-select">
                         <!--/*@thymesVar id="promoters" type="com.bairei.ormapp.models.Promoter"*/-->
                         <option value="" th:selected="selected" th:disabled="disabled">---</option>
                         <option th:each="promoter : ${promoters}" th:value="${promoter.id}" th:text="${promoter.name}" ></option>
@@ -56,7 +56,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Venue:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{venue}" required="required">
+                    <select th:field="*{venue}" required="required" class="custom-select">
                         <!--/*@thymesVar id="venues" type="com.bairei.ormapp.models.Venue"*/-->
                         <option value="" th:selected="selected" th:disabled="disabled">---</option>
                         <option th:each="venue : ${venues}" th:value="${venue.id}" th:text="${venue.name}" ></option>
@@ -66,7 +66,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Participating bands:</label>
                 <div class="col-sm-10">
-                    <select th:field="*{bandSet}" multiple="multiple">
+                    <select th:field="*{bandSet}" multiple="multiple" class="custom-select">
                         <!--/*@thymesVar id="bands" type="com.bairei.ormapp.models.Band"*/-->
                         <option th:each="band : ${bands}" th:value="${band.id}" th:text="${band.name}" ></option>
                     </select>
@@ -92,7 +92,7 @@
             </div>
             <div class="modal-body" id="myModalBody">Lorem ipsum</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

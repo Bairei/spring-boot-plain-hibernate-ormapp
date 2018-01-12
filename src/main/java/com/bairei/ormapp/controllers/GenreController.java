@@ -29,7 +29,7 @@ public class GenreController {
         if (AjaxUtils.isAjaxRequest(requestedWith)) {
             return "genreform :: genreForm";
         }
-        return "redirect:/";
+        return "staticgenreform";
     }
 
     @GetMapping("/genres")

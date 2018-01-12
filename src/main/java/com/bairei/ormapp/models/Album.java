@@ -24,7 +24,7 @@ public class Album {
     @JsonManagedReference
     private Band band;
 
-    @Min(value = 1900, message = "Year of release has to be later than 1900!") @Max(value = 2017, message = "Year of release has to not later than 2017!")
+    @Min(value = 1900, message = "Year of release has to be later than 1900!") @Max(value = 2018, message = "Year of release has to not later than 2018!")
     private Integer yearOfRelease;
 
     @ManyToOne
