@@ -70,9 +70,9 @@ public class BandServiceImpl implements BandService {
                     }
                 }
             }
-            for (Album a: band.getAlbums()){
-                albumService.deleteById(a.getId());
-            }
+//            for (Album a: band.getAlbums()){
+//                albumService.deleteById(a.getId());
+//            }
             bandRepository.deleteById(aLong);
         }
     }

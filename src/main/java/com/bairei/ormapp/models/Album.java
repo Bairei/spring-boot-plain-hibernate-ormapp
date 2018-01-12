@@ -35,7 +35,7 @@ public class Album {
             inverseJoinColumns = @JoinColumn(name = "member_id"))
     private Set<Member> members = new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Label label;
 
     @ManyToMany(fetch = FetchType.EAGER)
