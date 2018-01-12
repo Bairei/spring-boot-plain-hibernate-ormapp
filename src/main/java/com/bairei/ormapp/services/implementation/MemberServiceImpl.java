@@ -57,17 +57,25 @@ public class MemberServiceImpl implements MemberService{
             for(Band band : bands){
                 Set<Member> memberSet = band.getMembers();
                 memberSet.remove(member);
-                log.info(String.valueOf(band.getMembers().size()));
-                band.setMembers(memberSet);
-                log.info(String.valueOf(band.getMembers().size()));
-                bandService.save(band);
+                if (memberSet.size() < 1){
+                    bandService.deleteById(band.getId());
+                }
+                else {
+                    band.setMembers(memberSet);
+                    bandService.save(band);
+                }
             }
             List<Album> albums = albumService.findAlbumsByMembersIncludingMemberNameEqualsIgnoreCase(member.getName());
             for (Album album: albums){
                 Set<Member> memberSet = album.getMembers();
                 memberSet.remove(member);
-                album.setMembers(memberSet);
-                albumService.save(album);
+                if (memberSet.size() < 1){
+                    albumService.deleteById(album.getId());
+                }
+                else {
+                    album.setMembers(memberSet);
+                    albumService.save(album);
+                }
             }
             memberRepository.deleteById(aLong);
         }

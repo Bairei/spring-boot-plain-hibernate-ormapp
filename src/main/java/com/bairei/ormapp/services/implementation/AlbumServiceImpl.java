@@ -39,12 +39,14 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public void deleteById(Long aLong) {
         Album album = albumRepository.findById(aLong);
-        album.setMembers(null);
-        album.setGenre(null);
-        album.setStudios(null);
-        album.setLabel(null);
-        albumRepository.save(album);
-        albumRepository.deleteById(album.getId());
+        if (album != null) {
+            album.setMembers(null);
+            album.setGenre(null);
+            album.setStudios(null);
+            album.setLabel(null);
+            albumRepository.save(album);
+            albumRepository.deleteById(album.getId());
+        }
     }
 
     @Override

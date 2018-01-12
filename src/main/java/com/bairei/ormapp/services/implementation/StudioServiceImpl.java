@@ -53,8 +53,12 @@ public class StudioServiceImpl implements StudioService {
             for (Album album : albums) {
                 Set<Studio> studioSet = album.getStudios();
                 studioSet.remove(studio);
-                album.setStudios(studioSet);
-                albumService.save(album);
+                if (studioSet.size() < 1){
+                    albumService.deleteById(album.getId());
+                } else {
+                    album.setStudios(studioSet);
+                    albumService.save(album);
+                }
             }
             studio.setLocation(null);
             studioRepository.deleteById(aLong);
