@@ -135,7 +135,7 @@ $(document).ready(function () {
             url: "/api/recommend/" + genre["id"],
             success: function (data) {
                 console.log(data);
-                if (data.name) $("#recommendation").html("Your recommendation is: <p>" + data.name + "</p>");
+                if (data.name) $("#recommendation").html("Your recommendation is: <p class='lead'>" + data.name + "</p>");
                 else $("#recommendation").text("Unfortunately, we weren't able to find a recommendation for specific genre :(");
             },
             error: function (e) {

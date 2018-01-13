@@ -43,7 +43,7 @@ public class EventController {
     @GetMapping("/event/new")
     public String newEvent(Model model){
         formModel(new Event(), model);
-        return "eventForm";
+        return "eventform";
     }
 
     @GetMapping("/event/{id}/edit")

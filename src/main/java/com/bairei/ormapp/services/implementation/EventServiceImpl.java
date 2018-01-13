@@ -57,7 +57,7 @@ public class EventServiceImpl implements EventService {
         List<Event> allEvents = findAll();
         log.info(allEvents.toString());
         return allEvents.stream()
-                .filter(event -> event.getEventDate().isAfter(LocalDate.now()))
+                .filter(event -> event.getEventDate().isAfter(LocalDate.now()) || event.getEventDate().isEqual(LocalDate.now()))
                 .sorted(Comparator.comparing(Event::getEventDate, Comparator.nullsLast(Comparator.naturalOrder())))
                 .limit(5)
                 .collect(Collectors.toList());
