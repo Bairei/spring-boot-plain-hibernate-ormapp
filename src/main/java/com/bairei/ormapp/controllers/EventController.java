@@ -51,7 +51,7 @@ public class EventController {
         Event event = eventService.findById(id);
         if (event != null) {
             formModel(event, model);
-            return "eventForm";
+            return "eventform";
         }
         return "redirect:/events";
     }
@@ -60,14 +60,14 @@ public class EventController {
     public String postEvent(@ModelAttribute("event") @Valid Event event, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             formModel(event, model);
-            return "eventForm";
+            return "eventform";
         }
         try {
             eventService.save(event);
         } catch (Exception e){
             log.warn(e.toString());
             formModel(event, model);
-            return "eventForm";
+            return "eventform";
         }
         return "redirect:/events";
     }
