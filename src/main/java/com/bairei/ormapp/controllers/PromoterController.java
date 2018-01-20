@@ -25,7 +25,7 @@ public class PromoterController {
     public String newPromoter(Model model, @RequestHeader(value = "X-Requested-With", required = false) String requestedWith){
         model.addAttribute("newPromoter", new Promoter());
         if (AjaxUtils.isAjaxRequest(requestedWith)) {
-            return "promoterForm :: promoterForm";
+            return "promoterform :: promoterForm";
         }
         return "staticpromoterform";
     }
